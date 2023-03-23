@@ -1,0 +1,17 @@
+{
+    "name": "PhotoModeUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8695ac973b1290a478a7804409c13de0",
+        "GUID:708642790daf30145894a3efaf54a8b9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

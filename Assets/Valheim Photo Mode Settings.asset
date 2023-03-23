@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578fec7a45600e34c9d08755552d8c83, type: 3}
+  m_Name: Valheim Photo Mode Settings
+  m_EditorClassIdentifier: 
+  width:
+    overriding: 1
+    currentValue: 3840
+  height:
+    overriding: 1
+    currentValue: 2160
+  aperture:
+    overriding: 1
+    currentValue: 70
+  fov:
+    overriding: 1
+    currentValue: 48
+  focusDistance:
+    overriding: 1
+    currentValue: 24.542114
+  apertureShape:
+    overriding: 1
+    currentValue: {fileID: 11400000, guid: 3a504765dd06bd0418b22ae420667bdd, type: 2}
+  lensShift:
+    overriding: 1
+    currentValue: {x: 0, y: 0}
+  tonemapper:
+    overriding: 1
+    currentValue: 2
+  exposure:
+    overriding: 1
+    currentValue: 1.2219782
+  colorTemperature:
+    overriding: 1
+    currentValue: 10
+  contrast:
+    overriding: 1
+    currentValue: 25
+  saturation:
+    overriding: 1
+    currentValue: 28
+  bloomThreshold:
+    overriding: 1
+    currentValue: 0.7956044
+  bloomIntensity:
+    overriding: 1
+    currentValue: 1.0637363
+  chromaticAberration:
+    overriding: 1
+    currentValue: 0.029545454
+  vignette:
+    overriding: 1
+    currentValue: 0.25274727
+  quality:
+    overriding: 1
+    currentValue: 3
+  timeOfDay:
+    overriding: 1
+    currentValue: 0.0989011

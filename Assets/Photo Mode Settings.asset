@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9518060b8562f459717cf86fe0bd46, type: 3}
+  m_Name: Photo Mode Settings
+  m_EditorClassIdentifier: 
+  width:
+    overriding: 0
+    currentValue: 2051
+  height:
+    overriding: 0
+    currentValue: 941
+  aperture:
+    overriding: 1
+    currentValue: 54
+  fov:
+    overriding: 1
+    currentValue: 45
+  focusDistance:
+    overriding: 1
+    currentValue: 25.457876
+  apertureShape:
+    overriding: 1
+    currentValue: {fileID: 11400000, guid: 3a504765dd06bd0418b22ae420667bdd, type: 2}
+  lensShift:
+    overriding: 1
+    currentValue: {x: 0, y: 0}
+  tonemapper:
+    overriding: 1
+    currentValue: 2
+  exposure:
+    overriding: 1
+    currentValue: 0.4462471
+  colorTemperature:
+    overriding: 1
+    currentValue: 0
+  contrast:
+    overriding: 1
+    currentValue: 7
+  saturation:
+    overriding: 1
+    currentValue: 26
+  bloomThreshold:
+    overriding: 1
+    currentValue: 0.5881428
+  bloomIntensity:
+    overriding: 1
+    currentValue: 0.47054672
+  chromaticAberration:
+    overriding: 1
+    currentValue: 0
+  vignette:
+    overriding: 1
+    currentValue: 0.3978022
+  quality:
+    overriding: 1
+    currentValue: 3

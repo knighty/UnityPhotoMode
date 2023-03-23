@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5ce60f6064bb4b44a8b62971848f7f5, type: 3}
+  m_Name: Aperture Repository
+  m_EditorClassIdentifier: 
+  defaultApertures:
+  - shape: {fileID: 11400000, guid: 14a38d87a04fd01428a85f56e323d42d, type: 2}
+    name: Round
+  - shape: {fileID: 11400000, guid: 3a504765dd06bd0418b22ae420667bdd, type: 2}
+    name: Round Fringe
+  - shape: {fileID: 11400000, guid: 95359786fdef70142a048927ad8c0452, type: 2}
+    name: Heart
+  directory: /
