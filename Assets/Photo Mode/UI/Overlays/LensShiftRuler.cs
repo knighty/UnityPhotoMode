@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace PhotoMode.UI.Overlays
 {
+	[AddComponentMenu("Photo Mode/Overlays/Lens Shift Ruler")]
 	[RequireComponent(typeof(CanvasRenderer))]
 	public class LensShiftRuler : Graphic
 	{
@@ -44,9 +45,11 @@ namespace PhotoMode.UI.Overlays
 			}
 		}
 
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
 		}
+#endif
 	}
 }

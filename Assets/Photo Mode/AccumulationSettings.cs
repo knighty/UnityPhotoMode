@@ -58,6 +58,7 @@ public sealed class AccumulationRenderer : PostProcessEffectRenderer<Accumulatio
 
 	public override void Render(PostProcessRenderContext context)
 	{
+		return;
 		if (!Application.isPlaying)
 		{
 			return;

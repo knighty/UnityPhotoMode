@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9518060b8562f459717cf86fe0bd46, type: 3}
+  m_Name: testststs
+  m_EditorClassIdentifier: 
+  test2: 1
+  testUgh:
+    ugh: 5
+  width:
+    currentValue: 1920
+    overriding: 0
+  height:
+    currentValue: 1080
+    overriding: 0
+  aperture:
+    currentValue: 35
+    overriding: 1
+  fov:
+    currentValue: 60
+    overriding: 1
+  focusDistance:
+    currentValue: 1000
+    overriding: 1
+  apertureShape:
+    currentValue: {fileID: 0}
+    overriding: 1
+  lensShift:
+    currentValue: {x: 0, y: 0}
+    overriding: 1
+  lensTilt:
+    currentValue: {x: 0, y: 0}
+    overriding: 1
+  tonemapper:
+    currentValue: 2
+    overriding: 1
+  exposure:
+    currentValue: 0
+    overriding: 1
+  colorTemperature:
+    currentValue: 0
+    overriding: 1
+  contrast:
+    currentValue: 0
+    overriding: 1
+  saturation:
+    currentValue: 0
+    overriding: 1
+  bloomThreshold:
+    currentValue: 0
+    overriding: 1
+  bloomIntensity:
+    currentValue: 0
+    overriding: 1
+  chromaticAberration:
+    currentValue: 0
+    overriding: 1
+  vignette:
+    currentValue: 0
+    overriding: 1
+  quality:
+    currentValue: 2
+    overriding: 1

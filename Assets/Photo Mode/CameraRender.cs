@@ -1,3 +1,4 @@
+using PhotoMode;
 using UnityEngine;
 
 public class AccumulationCameraState
@@ -12,6 +13,7 @@ public class AccumulationCameraState
 	public ApertureShape apertureShape;
 	public int accumulation = 0;
 	public Vector2 lensShift;
+	public Vector2 lensTilt;
 
 	public AccumulationCameraState(Camera camera, float aperture, float focusDistance, int accumulation)
 	{
@@ -39,6 +41,7 @@ public class AccumulationCameraState
 				fov == other.fov &&
 				focusDistance == other.focusDistance &&
 				Vector2.Distance(lensShift, other.lensShift) < 0.00001f &&
+				Vector2.Distance(lensTilt, other.lensTilt) < 0.00001f &&
 				Vector3.Distance(position, other.position) < 0.000001f &&
 				Quaternion.Angle(rotation, other.rotation) < 0.000001f;
 		}

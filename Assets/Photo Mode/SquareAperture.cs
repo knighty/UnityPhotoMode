@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace PhotoMode
 {
-	[Serializable]
 	[CreateAssetMenu(fileName = "Square Aperture", menuName = "Photo Mode/Apertures/Square", order = 1)]
 	public class SquareAperture : ApertureShape
 	{

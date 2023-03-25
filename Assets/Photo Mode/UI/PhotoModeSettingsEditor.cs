@@ -131,7 +131,7 @@ namespace PhotoMode.UI
 	}
 
 
-	public class PhotoModeSettingsEditor : MonoBehaviour
+	public class PhotoModeSettingsEditor : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		[Serializable]
 		class EditorPrefabFactory
@@ -155,13 +155,16 @@ namespace PhotoMode.UI
 		[SerializeField] RectTransform tabBar;
 		[SerializeField] TabButton tabPrefab;
 
+		[SerializeField] List<string> serializeEditorPrefabFactoriesName;
+		[SerializeField] List<SettingEditor> serializeEditorPrefabFactoriesPrefab;
+
 		public PhotoModeSettings Settings
 		{
 			get => settings;
 			set
 			{
 				settings = value;
-				AddSettings(settings);
+				AddTabs(settings);
 			}
 		}
 
@@ -217,7 +220,7 @@ namespace PhotoMode.UI
 						continue;
 				}
 
-				if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(PhotoModeSetting<>))
+				if (typeof(PhotoModeSetting).IsAssignableFrom(property.PropertyType))//property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(PhotoModeSetting<>))
 				{
 					SettingEditor editor = null;
 					PhotoModeSetting setting = (PhotoModeSetting)property.GetValue(settings);
@@ -229,7 +232,7 @@ namespace PhotoMode.UI
 					{
 						switch (setting)
 						{
-							case PhotoModeSetting<float> floatSetting:
+							case PhotoModeSettingFloat floatSetting:
 								{
 									editor = Instantiate(floatPrefab);
 									editor.PropertyInfo = property;
@@ -242,7 +245,14 @@ namespace PhotoMode.UI
 
 					if (editor != null)
 					{
-						editor.Label = ObjectNames.NicifyVariableName(property.Name);
+						if (property.GetCustomAttribute<PhotoModeSettingAttribute>() is PhotoModeSettingAttribute attr && attr != null)
+						{
+							editor.Label = attr.name;
+						}
+						else
+						{
+							editor.Label = property.Name;// ObjectNames.NicifyVariableName(property.Name);
+						}
 						editor.transform.SetParent(propertiesList.transform);
 					}
 					else
@@ -271,6 +281,23 @@ namespace PhotoMode.UI
 			{
 				CommandList.Instance.Redo();
 			}
+		}
+
+		public void OnBeforeSerialize()
+		{
+			if (editorPrefabFactories != null)
+			{
+				serializeEditorPrefabFactoriesPrefab = editorPrefabFactories.Select(factory => factory.editorPrefab).ToList();
+				serializeEditorPrefabFactoriesName = editorPrefabFactories.Select(factory => factory.propertyName).ToList();
+			}
+		}
+
+		public void OnAfterDeserialize()
+		{
+			if (Application.isEditor)
+				return;
+
+			editorPrefabFactories = serializeEditorPrefabFactoriesName.Zip(serializeEditorPrefabFactoriesPrefab, (name, prefab) => new EditorPrefabFactory() { propertyName = name, editorPrefab = prefab }).ToList();
 		}
 	}
 }

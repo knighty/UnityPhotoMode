@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 namespace PhotoMode
 {
-	public interface PhotoModeRendererShaderFactory
-	{
-		Shader Processing { get; }
-		Shader Output { get; }
-	}
-
-	public class DefaultPhotoModeRendererShaderFactory : PhotoModeRendererShaderFactory
-	{
-		public Shader Processing => Shader.Find("Shaders/AccumulateFrame");
-		public Shader Output => Shader.Find("Hidden/RenderAccumulatedFrame");
-	}
-
 	public class PhotoModeRenderer
 	{
 		RenderTexture processingRenderTexture;
@@ -27,7 +16,7 @@ namespace PhotoMode
 
 		RenderTextureFormat processingRenderTextureFormat = RenderTextureFormat.ARGBFloat;
 
-		PhotoModeRendererShaderFactory shaderFactory;
+		ShaderFactory shaderFactory;
 
 		public class Result
 		{
@@ -35,7 +24,7 @@ namespace PhotoMode
 			public int Frames;
 		}
 
-		public PhotoModeRenderer(PhotoModeRendererShaderFactory shaderFactory)
+		public PhotoModeRenderer(ShaderFactory shaderFactory)
 		{
 			this.shaderFactory = shaderFactory;
 			InitProcesingMaterial();
@@ -44,7 +33,7 @@ namespace PhotoMode
 
 		private void InitProcesingMaterial()
 		{
-			processingMaterial = new Material(shaderFactory.Processing);
+			processingMaterial = new Material(shaderFactory.ProcessingShader);
 			processingMaterial.mainTextureOffset = Vector2.zero;
 			processingMaterial.mainTextureScale = Vector2.one;
 			processingMaterialMagnitude = Shader.PropertyToID("_Magnitude");
@@ -52,7 +41,7 @@ namespace PhotoMode
 
 		private void InitOutputMaterial()
 		{
-			outputMaterial = new Material(shaderFactory.Output);
+			outputMaterial = new Material(shaderFactory.OutputShader);
 			outputMaterial.mainTextureOffset = Vector2.zero;
 			outputMaterial.mainTextureScale = Vector2.one;
 			outputMaterialTotalAccumulations = Shader.PropertyToID("_TotalAccumulations");
@@ -82,9 +71,19 @@ namespace PhotoMode
 			outputRenderTexture = null;
 		}
 
+		public void Clear(RenderTexture texture)
+		{
+			RenderTexture rt = RenderTexture.active;
+			RenderTexture.active = texture;
+			GL.Clear(true, true, Color.clear);
+			RenderTexture.active = rt;
+		}
+
 		public IEnumerator RenderRealtime(Camera camera, PhotoModeSettings settings, PhotoModeOutput output, Action<Result> finished)
 		{
 			float timeStart = Time.realtimeSinceStartup;
+
+			camera.GetComponent<AccumulationCameraRenderer>().enabled = false;
 
 			AccumulationCameraController accumulationCameraController = camera.GetComponent<AccumulationCameraController>();
 
@@ -92,8 +91,11 @@ namespace PhotoMode
 			int height = settings.Height.IsOverriding ? (int)settings.Height : camera.pixelHeight;
 
 			RenderTexture processingRenderTexture = RenderTexture.GetTemporary(width, height, 0, processingRenderTextureFormat);
+			Clear(processingRenderTexture);
 			RenderTexture outputRenderTexture = RenderTexture.GetTemporary(width, height, 0, output.RenderTextureFormat);
-			RenderTexture cameraRenderTexture = RenderTexture.GetTemporary(width, height, 24, processingRenderTextureFormat);
+			Clear(outputRenderTexture);
+			RenderTexture cameraRenderTexture = RenderTexture.GetTemporary(width, height, 24, RenderTextureFormat.DefaultHDR);
+			Clear(cameraRenderTexture);
 
 			RenderTexture oldRT = camera.targetTexture;
 			int oldCullingMask = camera.cullingMask;
@@ -134,6 +136,8 @@ namespace PhotoMode
 			float timeEnd = Time.realtimeSinceStartup;
 
 			finished(new Result() { Duration = timeEnd - timeStart, Frames = numAccumulations });
+
+			camera.GetComponent<AccumulationCameraRenderer>().enabled = true;
 		}
 
 		public void Render(Camera camera, PhotoModeSettings settings, PhotoModeOutput output)

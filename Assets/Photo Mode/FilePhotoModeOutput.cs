@@ -87,7 +87,7 @@ namespace PhotoMode
 		public void Output(RenderTexture texture)
 		{
 			string file = Regex.Replace(filePath, "%([a-z\\-]*)%", MatchToken);
-			SaveTextureToFileUtility.SaveRenderTextureToFile(texture, file, fileFormat);
+			SaveTextureToFileUtility.SaveRenderTextureToFile(texture, file, fileFormat, 100);
 
 			/*Texture2D tex;
 			tex = new Texture2D(texture.width, texture.height, TextureFormat.ARGB32, false, true);
@@ -103,13 +103,13 @@ namespace PhotoMode
 			Clipboard.SetImage(image);
 			s.Dispose();*/
 
-			string path = Path.GetFullPath(file) + ".jpg";
+			/*string path = Path.GetFullPath(file) + ".jpg";
 			Debug.Log(path);
 			StringCollection strcolFileList = new StringCollection
 			{
 				path
 			};
-			Clipboard.SetFileDropList(strcolFileList);
+			Clipboard.SetFileDropList(strcolFileList);*/
 		}
 	}
 }

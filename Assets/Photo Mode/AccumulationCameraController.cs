@@ -63,7 +63,8 @@ public class PostProcessingAccumulationCameraAccumulator : AccumulationCameraAcc
 	{
 		AccumulationCameraState s = new AccumulationCameraState(camera, photoModeSettings.Aperture, photoModeSettings.FocusDistance, Accumulation)
 		{
-			apertureShape = photoModeSettings.ApertureShape
+			apertureShape = photoModeSettings.ApertureShape,
+			lensTilt = photoModeSettings.LensTilt
 		};
 		if (photoModeSettings.Fov.IsOverriding)
 			s.fov = photoModeSettings.Fov;
@@ -159,8 +160,13 @@ public class AccumulationCameraController : MonoBehaviour
 	}
 
 	//http://graphics.stanford.edu/courses/cs248-02/haeberli-akeley-accumulation-buffer-sig90.pdf
-	(Matrix4x4, Matrix4x4) GetProjectionMatrix(AccumulationCameraState state, Camera camera, int total)
+	(Matrix4x4, Vector3) GetProjectionMatrix(AccumulationCameraState state, Camera camera, int total)
 	{
+		if (state.apertureShape == null)
+		{
+			Debug.Log("No aperture shape for calculating projection matrix");
+		}
+
 		int width = state.width;
 		int height = state.height;
 		int i = state.accumulation;
@@ -195,7 +201,7 @@ public class AccumulationCameraController : MonoBehaviour
 		//camera.lensShift = new Vector2(-lensdx, -lensdy);
 		//camera.usePhysicalProperties = true;
 
-		return (mat, translate);
+		return (mat, new Vector3(-lensdx, -lensdy, 0));
 	}
 
 	Matrix4x4 GetProjectionMatrix2(Camera camera)
@@ -250,21 +256,28 @@ public class AccumulationCameraController : MonoBehaviour
 		if (accumulator != null)
 		{
 			accumulator.Update();
-			//Debug.Log("Render frame");
 			OnFrameRendered?.Invoke();
 			// We translate in view space because translating in projection space breaks almost everything in Unity
 			// I'm not sure if this is 100% identical but it seems to work..
-			(Matrix4x4 projection, Matrix4x4 translation) = GetProjectionMatrix(accumulator.State, camera, accumulator.Total);
+			(Matrix4x4 projection, Vector3 translation) = GetProjectionMatrix(accumulator.State, camera, accumulator.Total);
 			camera.projectionMatrix = projection;
 			//camera.cullingMatrix = GetProjectionMatrix2(camera) * camera.worldToCameraMatrix;
 			//camera.nonJitteredProjectionMatrix = GetProjectionMatrix2(camera);
-			camera.worldToCameraMatrix = translation * camera.worldToCameraMatrix;
+			//Quaternion rot = Quaternion.Euler(0, Mathf.Sin(Time.realtimeSinceStartup / 10.0f) * 30.0f, 0);
+			Matrix4x4 rotMatrixY = Matrix4x4.Rotate(Quaternion.Euler(0, accumulator.State.lensTilt.x, 0));
+			Matrix4x4 rotMatrixX = Matrix4x4.Rotate(Quaternion.Euler(accumulator.State.lensTilt.y, 0, 0));
+			Quaternion rot = Quaternion.Euler(accumulator.State.lensTilt.y, accumulator.State.lensTilt.x, 0);
+			Vector4 t = new Vector4(translation.x, translation.y, translation.z, 0);
+			//Matrix4x4 translate = Matrix4x4.Translate((rotMatrixY * rotMatrixX) * t);
+			Matrix4x4 translate = Matrix4x4.Translate(translation);
+
+			camera.worldToCameraMatrix = translate * camera.worldToCameraMatrix;
 			camera.fieldOfView = accumulator.State.fov;
 		}
 
-		if (accumulator != null && accumulator.Accumulation != 0)
+		/*if (accumulator != null && accumulator.Accumulation != 0)
 		{
 			Time.timeScale = 0;
-		}
+		}*/
 	}
 }

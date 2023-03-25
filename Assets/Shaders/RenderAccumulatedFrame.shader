@@ -5,41 +5,39 @@ Shader "Hidden/RenderAccumulatedFrame"
         _MainTex ("Main Texture", 2D) = "" {}
     }
 
-    HLSLINCLUDE
+    CGINCLUDE
+        #include "UnityCG.cginc"
 
-        #include "Packages/com.unity.postprocessing/PostProcessing/Shaders/StdLib.hlsl"
-
-        struct AttributesDefault2
+        struct appdata
         {
-            float3 vertex : POSITION;
+            float4 vertex : POSITION;
             float2 uv : TEXCOORD0;
         };
 
-        VaryingsDefault VertDefault2(AttributesDefault2 v)
+        struct v2f
         {
-            VaryingsDefault o;
-            o.vertex = float4(v.vertex.xy * 2 - 1, 0.0, 1.0);
-            o.texcoord = v.uv;
+            float2 uv : TEXCOORD0;
+            float4 vertex : SV_POSITION;
+        };
 
-        #if UNITY_UV_STARTS_AT_TOP
-            o.texcoord = o.texcoord * float2(1.0, -1.0) + float2(0.0, 1.0);
-        #endif
-
-            o.texcoordStereo = TransformStereoScreenSpaceTex(o.texcoord, 1.0);
-
+        v2f vert (appdata v)
+        {
+            v2f o;
+            o.vertex = UnityObjectToClipPos(v.vertex);
+            o.uv = v.uv;
             return o;
         }
 
-        TEXTURE2D_SAMPLER2D(_MainTex, sampler_MainTex);
+        sampler2D _MainTex;
         float _TotalAccumulations;
 
-        float4 Frag(VaryingsDefault i) : SV_Target
+        float4 frag(v2f i) : SV_Target
         {
-            float4 color = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.texcoord) / (_TotalAccumulations);
+            float4 color = tex2D(_MainTex, i.uv);
+            color.rgb = color.rgb / _TotalAccumulations;
             return color;
         }
-
-    ENDHLSL
+    ENDCG
 
     SubShader
     {
@@ -47,22 +45,22 @@ Shader "Hidden/RenderAccumulatedFrame"
 
         Pass
         {
-            HLSLPROGRAM
+            CGPROGRAM
 
-                #pragma vertex VertDefault
-                #pragma fragment Frag
+                #pragma vertex vert
+                #pragma fragment frag
 
-            ENDHLSL
+            ENDCG
         }
 
         Pass
         {
-            HLSLPROGRAM
+            CGPROGRAM
 
-                #pragma vertex VertDefault2
-                #pragma fragment Frag
+                #pragma vertex vert
+                #pragma fragment frag
 
-            ENDHLSL
+            ENDCG
         }
     }
 }

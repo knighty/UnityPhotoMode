@@ -1,5 +1,4 @@
 using Drawing;
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,10 +37,12 @@ namespace PhotoMode.UI.Overlays
 			Canvas.DrawArc(0, 0, 32, size, size - lineWeight, 0 + Mathf.PI, -roll + Mathf.PI);
 		}
 
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
 		}
+#endif
 
 		private void Update()
 		{

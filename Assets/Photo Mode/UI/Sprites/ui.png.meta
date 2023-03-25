@@ -53,6 +53,12 @@ TextureImporter:
   - first:
       213: 4874896633046561287
     second: Selector Right
+  - first:
+      213: -7787622976490332879
+    second: Edge Mask 64
+  - first:
+      213: 3793417686556777753
+    second: Edge Mask 32
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -494,6 +500,48 @@ TextureImporter:
       bones: []
       spriteID: 702fc71d8ac17a340800000000000000
       internalID: 4874896633046561287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Edge Mask 64
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 875
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 16, y: 16, z: 16, w: 16}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13d9f99d92ecce390800000000000000
+      internalID: -7787622976490332879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Edge Mask 32
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 906
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 15, y: 15, z: 15, w: 15}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d96eb994de4a430800000000000000
+      internalID: 3793417686556777753
       vertices: []
       indices: 
       edges: []

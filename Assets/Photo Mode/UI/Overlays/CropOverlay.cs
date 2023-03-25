@@ -60,9 +60,11 @@ namespace PhotoMode.UI.Overlays
 			}
 		}
 
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
 		}
+#endif
 	}
 }

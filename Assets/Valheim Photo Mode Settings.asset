@@ -20,17 +20,20 @@ MonoBehaviour:
     currentValue: 2160
   aperture:
     overriding: 1
-    currentValue: 70
+    currentValue: 60
   fov:
     overriding: 1
     currentValue: 48
   focusDistance:
     overriding: 1
-    currentValue: 24.542114
+    currentValue: 1.1705074
   apertureShape:
     overriding: 1
     currentValue: {fileID: 11400000, guid: 3a504765dd06bd0418b22ae420667bdd, type: 2}
   lensShift:
+    overriding: 1
+    currentValue: {x: 0, y: 0}
+  lensTilt:
     overriding: 1
     currentValue: {x: 0, y: 0}
   tonemapper:
@@ -44,10 +47,10 @@ MonoBehaviour:
     currentValue: 10
   contrast:
     overriding: 1
-    currentValue: 25
+    currentValue: -5
   saturation:
     overriding: 1
-    currentValue: 28
+    currentValue: 12
   bloomThreshold:
     overriding: 1
     currentValue: 0.7956044
@@ -66,3 +69,6 @@ MonoBehaviour:
   timeOfDay:
     overriding: 1
     currentValue: 0.0989011
+  environment:
+    overriding: 1
+    currentValue: 1

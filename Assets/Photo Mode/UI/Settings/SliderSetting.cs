@@ -1,11 +1,10 @@
-using System;
 using System.Reflection;
-using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhotoMode.UI
 {
+	[AddComponentMenu("Photo Mode/Settings/Slider Setting")]
 	[RequireComponent(typeof(SettingEditor))]
 	public class SliderSetting : BaseSettingEditor<float>
 	{

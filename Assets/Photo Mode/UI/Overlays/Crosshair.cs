@@ -37,16 +37,18 @@ namespace PhotoMode.UI.Overlays
 
 			if (circleSize > 0)
 			{
-				Canvas.DrawCircle(rect.xMax / 2, rect.yMax / 2, 64, circleSize, Mathf.Max(circleSize - circleWeight, 0));
+				Canvas.DrawCircle(0, 0, 64, circleSize, Mathf.Max(circleSize - circleWeight, 0));
 			}
 			Canvas.DrawQuad(P(c.x - w, c.y + cw), P(c.x + w, c.y + cw), P(c.x - w, c.y - cw), P(c.x + w, c.y - cw));
 			Canvas.DrawQuad(P(c.x - cw, c.y + w), P(c.x - w, c.y + w), P(c.x - cw, c.y - w), P(c.x - w, c.y - w));
 			Canvas.DrawQuad(P(c.x + w, c.y + w), P(c.x + cw, c.y + w), P(c.x + w, c.y - w), P(c.x + cw, c.y - w));
 		}
 
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
 		}
+#endif
 	}
 }

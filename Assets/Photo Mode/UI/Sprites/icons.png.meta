@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: -299690340437171572
     second: Arrows LeftRight
+  - first:
+      213: -1290855366162983238
+    second: Crosshair
+  - first:
+      213: -2248273014285675650
+    second: Caret Up
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -134,6 +140,48 @@ TextureImporter:
       bones: []
       spriteID: c8260a3293947dbf0800000000000000
       internalID: -299690340437171572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Crosshair
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 482
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab6d27b32e5f51ee0800000000000000
+      internalID: -1290855366162983238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Caret Up
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 488
+        width: 30
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e73d769fa978cc0e0800000000000000
+      internalID: -2248273014285675650
       vertices: []
       indices: 
       edges: []

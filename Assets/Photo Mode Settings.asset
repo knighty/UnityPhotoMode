@@ -13,53 +13,93 @@ MonoBehaviour:
   m_Name: Photo Mode Settings
   m_EditorClassIdentifier: 
   width:
+    currentValue: 2000
     overriding: 0
-    currentValue: 2051
   height:
+    currentValue: 1080
     overriding: 0
-    currentValue: 941
   aperture:
-    overriding: 1
-    currentValue: 54
-  fov:
-    overriding: 1
     currentValue: 45
+    overriding: 1
+  fov:
+    currentValue: 30
+    overriding: 1
   focusDistance:
+    currentValue: 45
     overriding: 1
-    currentValue: 25.457876
   apertureShape:
-    overriding: 1
     currentValue: {fileID: 11400000, guid: 3a504765dd06bd0418b22ae420667bdd, type: 2}
+    overriding: 1
   lensShift:
+    currentValue: {x: 1, y: 0}
     overriding: 1
+  lensTilt:
     currentValue: {x: 0, y: 0}
+    overriding: 1
   tonemapper:
-    overriding: 1
     currentValue: 2
+    overriding: 1
   exposure:
+    currentValue: 0
     overriding: 1
-    currentValue: 0.4462471
   colorTemperature:
-    overriding: 1
     currentValue: 0
+    overriding: 1
   contrast:
-    overriding: 1
-    currentValue: 7
-  saturation:
-    overriding: 1
-    currentValue: 26
-  bloomThreshold:
-    overriding: 1
-    currentValue: 0.5881428
-  bloomIntensity:
-    overriding: 1
-    currentValue: 0.47054672
-  chromaticAberration:
-    overriding: 1
     currentValue: 0
+    overriding: 1
+  saturation:
+    currentValue: 0
+    overriding: 1
+  bloomThreshold:
+    currentValue: 0
+    overriding: 1
+  bloomIntensity:
+    currentValue: 0
+    overriding: 1
+  chromaticAberration:
+    currentValue: 0
+    overriding: 1
   vignette:
+    currentValue: 0
     overriding: 1
-    currentValue: 0.3978022
   quality:
+    currentValue: 2
     overriding: 1
-    currentValue: 3
+  jsonSerialize:
+  - width
+  - '{"currentValue":2000.0,"overriding":false}'
+  - height
+  - '{"currentValue":1080.0,"overriding":false}'
+  - aperture
+  - '{"currentValue":45.0,"overriding":true}'
+  - fov
+  - '{"currentValue":30.0,"overriding":true}'
+  - focusDistance
+  - '{"currentValue":45.0,"overriding":true}'
+  - apertureShape
+  - '{"currentValue":{"instanceID":61990},"overriding":true}'
+  - lensShift
+  - '{"currentValue":{"x":1.0,"y":0.0},"overriding":true}'
+  - lensTilt
+  - '{"currentValue":{"x":0.0,"y":0.0},"overriding":true}'
+  - tonemapper
+  - '{"currentValue":2,"overriding":true}'
+  - exposure
+  - '{"currentValue":0.0,"overriding":true}'
+  - colorTemperature
+  - '{"currentValue":0.0,"overriding":true}'
+  - contrast
+  - '{"currentValue":0.0,"overriding":true}'
+  - saturation
+  - '{"currentValue":0.0,"overriding":true}'
+  - bloomThreshold
+  - '{"currentValue":0.0,"overriding":true}'
+  - bloomIntensity
+  - '{"currentValue":0.0,"overriding":true}'
+  - chromaticAberration
+  - '{"currentValue":0.0,"overriding":true}'
+  - vignette
+  - '{"currentValue":0.0,"overriding":true}'
+  - quality
+  - '{"currentValue":2,"overriding":true}'

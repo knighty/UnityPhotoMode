@@ -1,9 +1,9 @@
-using PhotoMode;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhotoMode.UI
 {
+	[AddComponentMenu("Photo Mode/Settings/Aperture Shape Setting")]
 	public class ApertureShapeSetting : BaseSettingEditor<ApertureShape>
 	{
 		[SerializeField] RawImage previewImage;

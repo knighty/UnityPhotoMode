@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 namespace PhotoMode.UI.Overlays
 {
+	[AddComponentMenu("Photo Mode/Overlays/Lens Shift Triangle")]
 	[RequireComponent(typeof(CanvasRenderer))]
-	public class LensShiftTriangle : Graphic
+	public class LensShiftTriangle : MonoBehaviour// : Graphic
 	{
 		public enum Direction
 		{
@@ -38,7 +39,7 @@ namespace PhotoMode.UI.Overlays
 			}
 		}
 
-		protected override void OnPopulateMesh(VertexHelper vh)
+		/*protected override void OnPopulateMesh(VertexHelper vh)
 		{
 			vh.Clear();
 			Rect rect = GetPixelAdjustedRect();
@@ -53,6 +54,6 @@ namespace PhotoMode.UI.Overlays
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
-		}
+		}*/
 	}
 }

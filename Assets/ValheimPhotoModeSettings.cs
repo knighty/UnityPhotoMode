@@ -11,21 +11,26 @@ public class ValheimPhotoModeSettings : PhotoModeSettings
 	const string CATEGORY_WORLD = "World";
 
 	[SerializeField]
-	private PhotoModeSetting<float> timeOfDay;
+	private PhotoModeSetting<float> timeOfDay = new PhotoModeSettingFloat(0.5f, true);
 
 	[SerializeField]
-	private PhotoModeSetting<Environments> environment;
+	private PhotoModeSetting<Environments> environment = new PhotoModeSettingEnvironments(Environments.Clear, true);
 
 	[PhotoMode.Min(0), Max(1), Round(2), Overridable(true), Category(CATEGORY_WORLD)]
 	public PhotoModeSetting<float> TimeOfDay { get => timeOfDay; }
 
 	[Overridable(true), Category(CATEGORY_WORLD)]
 	public PhotoModeSetting<Environments> Environment { get => environment; }
+}
 
-	public override void Apply()
-	{
-		base.Apply();
+[Serializable]
+public class PhotoModeSettingEnvironments : PhotoModeSetting<Environments>
+{
+	[SerializeField] private Environments currentValue = Environments.Clear;
+	[SerializeField] private bool overriding = false;
 
-		//light.rotation = Quaternion.Euler(0, 0, timeOfDay.Value * Mathf.PI * 2);
-	}
+	public PhotoModeSettingEnvironments(Environments value, bool overriding = true) : base(value, overriding) { }
+
+	protected override Environments ValueInternal { get => currentValue; set => currentValue = value; }
+	protected override bool OverridingInternal { get => overriding; set => overriding = value; }
 }

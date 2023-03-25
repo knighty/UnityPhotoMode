@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class OptionSelector : MonoBehaviour, IPointerClickHandler, ILayoutElement
+public class OptionSelector : MonoBehaviour, IPointerClickHandler, ILayoutElement, ISerializationCallbackReceiver
 {
 	[Serializable]
 	public class Option
@@ -155,4 +155,16 @@ public class OptionSelector : MonoBehaviour, IPointerClickHandler, ILayoutElemen
 	}
 
 	public void CalculateLayoutInputVertical() { }
+
+	public void OnBeforeSerialize()
+	{
+	}
+
+	public void OnAfterDeserialize()
+	{
+		if (Application.isEditor)
+			return;
+
+		options = new List<Option>();
+	}
 }

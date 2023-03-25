@@ -19,19 +19,13 @@ namespace PhotoMode
 		[SerializeReference]
 		public AccumulationCameraController AccumulationCameraController;
 
-		public PhotoModeSettings Settings { get => settings; }
+		[SerializeField] ShaderFactory shaderFactory;
+
+		public PhotoModeSettings Settings { get => settings; set => settings = value; }
 
 		public void Awake()
 		{
-			photoModeRenderer = new PhotoModeRenderer(new DefaultPhotoModeRendererShaderFactory());
-
-			/*settings.BloomIntensity = 0.5f;
-			settings.BloomThreshold = 0.7f;
-			settings.Saturation = 12;
-			settings.Exposure = 0.3f;
-			settings.ChromaticAberration = 0.1f;
-			settings.ColorTemperature = -12;
-			settings.Contrast = 12;*/
+			photoModeRenderer = new PhotoModeRenderer(shaderFactory);
 
 			volume = settings.InitVolume();
 			volume.transform.SetParent(transform);
@@ -44,20 +38,24 @@ namespace PhotoMode
 
 		public void Update()
 		{
-			settings.ApplyToVolume(volume);
-			settings.ApplyToCamera(Camera);
-			settings.Apply();
+			if (Settings == null || Camera == null)
+			{
+				return;
+			}
+
+			Settings.ApplyToVolume(volume);
+			Settings.ApplyToCamera(Camera);
 
 			if (Input.GetKeyDown(KeyCode.I))
 			{
-				photoModeRenderer.Render(Camera, settings, output);
+				photoModeRenderer.Render(Camera, Settings, output);
 			}
 
 			if (Input.GetKeyDown(KeyCode.O))
 			{
 				if (activeRender == null)
 				{
-					activeRender = StartCoroutine(photoModeRenderer.RenderRealtime(Camera, settings, output, (result) =>
+					activeRender = StartCoroutine(photoModeRenderer.RenderRealtime(Camera, Settings, output, (result) =>
 					{
 						Debug.Log($"--- Render completed ---");
 						Debug.Log($"Time Taken: {result.Duration}s");
@@ -73,6 +71,11 @@ namespace PhotoMode
 				{
 					settings.FocusDistance.Value = hitInfo.distance;
 				}
+			}
+
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 			}
 		}
 

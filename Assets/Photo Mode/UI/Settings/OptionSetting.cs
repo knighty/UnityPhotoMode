@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace PhotoMode.UI
 {
+	[AddComponentMenu("Photo Mode/Settings/Option Setting")]
 	[RequireComponent(typeof(SettingEditor))]
 	public class OptionSetting : BaseSettingEditor<object>
 	{

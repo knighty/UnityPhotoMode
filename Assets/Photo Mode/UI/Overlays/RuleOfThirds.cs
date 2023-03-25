@@ -44,9 +44,11 @@ namespace PhotoMode.UI.Overlays
 			Canvas.DrawQuad(P(x2 + w, y2 - w), P(x2 + w, y2 + w), P(x3, y2 - w), P(x3, y2 + w));
 		}
 
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
 		}
+#endif
 	}
 }

@@ -4,7 +4,6 @@ using UnityEngine.XR;
 
 namespace PhotoMode
 {
-	[Serializable]
 	[CreateAssetMenu(fileName = "Image Aperture", menuName = "Photo Mode/Apertures/Image", order = 1)]
 	public class ImageAperture : ApertureShape
 	{

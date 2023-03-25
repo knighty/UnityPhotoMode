@@ -11,6 +11,33 @@ namespace PhotoMode.UI.Overlays
 		[SerializeField] ViewFinder viewFinder;
 		[SerializeField] CropOverlay crop;
 
+		public PhotoModeSettings Settings
+		{
+			set
+			{
+				settings = value;
+				if (viewFinder != null)
+				{
+					viewFinder.Settings = settings;
+				}
+				if (crop != null)
+				{
+					crop.Settings = settings;
+				}
+			}
+		}
+		public Camera Camera
+		{
+			set
+			{
+				camera = value;
+				if (viewFinder != null)
+				{
+					viewFinder.Camera = camera;
+				}
+			}
+		}
+
 		public void OnPointerClick(PointerEventData eventData)
 		{
 			Vector3 rayDirection = Camera.main.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, 1)) - Camera.main.transform.position;

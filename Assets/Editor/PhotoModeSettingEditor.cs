@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace PhotoMode
 {
+	[ExecuteInEditMode]
 	[CustomPropertyDrawer(typeof(PhotoModeSetting<>))]
 	public class PhotoModeSettingEditor : PropertyDrawer
 	{
@@ -30,13 +31,12 @@ namespace PhotoMode
 
 			//EditorGUIUtility.labelWidth = 60;
 			property.FindPropertyRelative("overriding").boolValue = EditorGUI.Toggle(toggleRect, property.FindPropertyRelative("overriding").boolValue);
-			//EditorGUI.BeginChangeCheck();
+			EditorGUI.BeginChangeCheck();
 			EditorGUI.PropertyField(valueRect, property.FindPropertyRelative("currentValue"), label);
-			/*if (EditorGUI.EndChangeCheck())
+			if (EditorGUI.EndChangeCheck())
 			{
 				property.serializedObject.ApplyModifiedProperties();
-				setting.Update();
-			}*/
+			}
 
 			EditorGUI.indentLevel = indent;
 
