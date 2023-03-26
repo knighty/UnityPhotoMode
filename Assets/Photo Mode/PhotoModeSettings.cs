@@ -158,6 +158,12 @@ namespace PhotoMode
 		private PhotoModeSettingFloat saturation = new PhotoModeSettingFloat(0);
 
 		[SerializeField]
+		private PhotoModeSettingFloat clarity = new PhotoModeSettingFloat(0);
+
+		[SerializeField]
+		private PhotoModeSettingFloat vibrance = new PhotoModeSettingFloat(0);
+
+		[SerializeField]
 		private PhotoModeSettingFloat bloomThreshold = new PhotoModeSettingFloat(0);
 
 		[SerializeField]
@@ -260,6 +266,14 @@ namespace PhotoMode
 		[PhotoModeSetting("Saturation")]
 		[Min(-100), Max(100), Round(0), Overridable(true), Category(CATEGORY_COLOR)]
 		public PhotoModeSetting<float> Saturation { get => saturation; }
+
+		[PhotoModeSetting("Clarity")]
+		[Min(-1), Max(3), Round(2), Overridable(true), Category(CATEGORY_COLOR)]
+		public PhotoModeSetting<float> Clarity { get => clarity; }
+
+		[PhotoModeSetting("Vibrance")]
+		[Min(-1), Max(3), Round(2), Overridable(true), Category(CATEGORY_COLOR)]
+		public PhotoModeSetting<float> Vibrance { get => vibrance; }
 
 		[PhotoModeSetting("Bloom - Threshold")]
 		[Min(0), Max(2), Round(2), Overridable(true), Category(CATEGORY_LIGHTING)]

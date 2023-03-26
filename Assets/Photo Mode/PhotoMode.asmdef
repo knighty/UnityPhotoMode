@@ -1,6 +1,6 @@
 {
     "name": "PhotoMode",
-    "rootNamespace": "",
+    "rootNamespace": "PhotoMode",
     "references": [
         "GUID:d60799ab2a985554ea1a39cd38695018"
     ],

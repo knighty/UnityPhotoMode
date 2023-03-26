@@ -5,14 +5,8 @@ using UnityEngine.UI;
 
 public class WindowBackground : MonoBehaviour
 {
-    [SerializeField] private Image image;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Graphic image;
 
-    // Update is called once per frame
     void Update()
     {
         image.material.SetFloat("_UnscaledTime", Time.unscaledTime);

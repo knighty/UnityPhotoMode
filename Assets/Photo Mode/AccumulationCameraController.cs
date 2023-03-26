@@ -82,6 +82,7 @@ public class PostProcessingAccumulationCameraAccumulator : AccumulationCameraAcc
 			previousState = currentState;
 			UpdateState(); 
 		}
+		accumulation = Math.Min(Accumulation, Total);
 	}
 }
 

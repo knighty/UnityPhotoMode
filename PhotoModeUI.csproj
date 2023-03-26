@@ -59,11 +59,15 @@
     <Compile Include="Assets\Photo Mode\UI\Overlays\OverlayOptions.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\SliderSetting.cs" />
     <Compile Include="Assets\Photo Mode\UI\FancySlider.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Overlays\LensShiftRuler.cs" />
     <Compile Include="Assets\Photo Mode\UI\SettingEditor.cs" />
     <Compile Include="Assets\Photo Mode\UI\OptionSelector.cs" />
+    <Compile Include="Assets\Photo Mode\UI\TestScriptable.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\LensShiftSetting.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\CropOverlay.cs" />
+    <Compile Include="Assets\Photo Mode\UI\HistogramGraphic.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\ApertureShapeSetting.cs" />
+    <Compile Include="Assets\Photo Mode\UI\TestScriptableChild.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\RollOverlay.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\Crosshair.cs" />
     <Compile Include="Assets\Photo Mode\UI\BetterInputField.cs" />
@@ -73,16 +77,17 @@
     <Compile Include="Assets\Photo Mode\UI\Overlays\Overlay.cs" />
     <Compile Include="Assets\Photo Mode\UI\TabButton.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\OptionSetting.cs" />
-    <Compile Include="Assets\Photo Mode\UI\TextSizedButton.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Overlays\LensShiftTriangle.cs" />
+    <Compile Include="Assets\Photo Mode\UI\ContentSizedButton.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\BaseSettingEditor.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Settings\DropDownSetting.cs" />
     <Compile Include="Assets\Photo Mode\UI\PhotoModeSettingsEditor.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\RuleOfThirds.cs" />
     <Compile Include="Assets\Photo Mode\UI\WindowBackground.cs" />
-    <Compile Include="Assets\Photo Mode\UI\Settings\DropDownSetting.cs" />
-    <Compile Include="Assets\Photo Mode\UI\Overlays\LensShiftRuler.cs" />
-    <Compile Include="Assets\Photo Mode\UI\Overlays\LensShiftTriangle.cs" />
-    <Compile Include="Assets\Photo Mode\UI\TestScriptableChild.cs" />
-    <Compile Include="Assets\Photo Mode\UI\TestScriptable.cs" />
+    <Compile Include="Assets\Photo Mode\UI\ProgressBar.cs" />
+    <Compile Include="Assets\Photo Mode\UI\MetricsPanel.cs" />
+    <Compile Include="Assets\Photo Mode\UI\PhotoModeUI.cs" />
+    <Compile Include="Assets\Photo Mode\UI\ImageTexture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photo Mode\UI\Shaders\OverlayTextured.cginc" />
@@ -92,6 +97,7 @@
     <None Include="Assets\Photo Mode\UI\Shaders\WindowBackground.shader" />
     <None Include="Assets\Photo Mode\UI\Shaders\Overlay.shader" />
     <None Include="Assets\Photo Mode\UI\Shaders\ButtonBackground.shader" />
+    <None Include="Assets\Photo Mode\UI\Shaders\HistogramDisplay.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

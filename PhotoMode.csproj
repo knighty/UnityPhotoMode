@@ -8,7 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>PhotoMode</RootNamespace>
     <ProjectGuid>{67E26F6D-C1D8-8D6F-FB9A-360091DD9343}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -77,9 +77,11 @@
     <Compile Include="Assets\Photo Mode\TexturePhotoModeOutput.cs" />
     <Compile Include="Assets\Photo Mode\PhotoMode.cs" />
     <Compile Include="Assets\Photo Mode\PhotoModeRenderer.cs" />
+    <Compile Include="Assets\Photo Mode\Histogram.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photo Mode\Shaders\Clarity.shader" />
+    <None Include="Assets\Photo Mode\Shaders\Histogram.compute" />
     <None Include="Assets\Photo Mode\PhotoMode.asmdef" />
     <None Include="Assets\Photo Mode\Shaders\TwoPassGaussianBlur.shader" />
     <None Include="Assets\Photo Mode\Shaders\GaussianBlur.cginc" />

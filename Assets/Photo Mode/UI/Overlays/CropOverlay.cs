@@ -7,6 +7,8 @@ namespace PhotoMode.UI.Overlays
 	[AddComponentMenu("Photo Mode/Overlays/Crop")]
 	public class CropOverlay : Graphic
 	{
+		[SerializeField] private RectTransform compositionOverlay;
+
 		private PhotoModeSettings settings;
 		public PhotoModeSettings Settings
 		{
@@ -14,6 +16,7 @@ namespace PhotoMode.UI.Overlays
 			{
 				value.Width.OnChange += UpdateCrop;
 				value.Height.OnChange += UpdateCrop;
+				UpdateCrop(null);
 				settings = value;
 			}
 		}
@@ -21,6 +24,31 @@ namespace PhotoMode.UI.Overlays
 		private void UpdateCrop(PhotoModeSetting obj)
 		{
 			SetVerticesDirty();
+
+			if (settings == null || !settings.Width.IsOverriding || !settings.Height.IsOverriding)
+			{
+				compositionOverlay.anchorMin = new Vector2(0, 0);
+				compositionOverlay.anchorMax = new Vector2(1, 1);
+				return;
+			}
+
+			Rect rect = GetPixelAdjustedRect();
+			float aspectRatio = settings.Width.Value / settings.Height.Value;
+			float rectAspectRatio = rect.width / rect.height;
+			float normalizedW = settings.Width.Value / rect.width;
+			float normalizedH = settings.Height.Value / rect.height;
+			if (normalizedW > normalizedH)
+			{
+				float a = (1.0f / aspectRatio) * rectAspectRatio * 0.5f;
+				compositionOverlay.anchorMin = new Vector2(0, 0.5f - a);
+				compositionOverlay.anchorMax = new Vector2(1, 0.5f + a);
+			}
+			else
+			{
+				float a = (aspectRatio) * (1.0f / rectAspectRatio) * 0.5f;
+				compositionOverlay.anchorMin = new Vector2(0.5f - a, 0);
+				compositionOverlay.anchorMax = new Vector2(0.5f + a, 1);
+			}
 		}
 
 		protected override void OnPopulateMesh(VertexHelper vh)

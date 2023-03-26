@@ -3,7 +3,9 @@ Shader "UI/ButtonBackground"
     Properties
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        _ButtonColor ("Button Color", Color) = (1,1,1,1)
         _Color ("Tint", Color) = (1,1,1,1)
+        _AnimationSpeed ("Animation Speed", float) = 1
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -78,11 +80,13 @@ Shader "UI/ButtonBackground"
 
             sampler2D _MainTex;
             fixed4 _Color;
+            fixed4 _ButtonColor;
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float4 _MainTex_ST;
 			float _UnscaledTime;
 			float2 _MousePosition;
+            float _AnimationSpeed;
 
             v2f vert(appdata_t v)
             {
@@ -95,7 +99,7 @@ Shader "UI/ButtonBackground"
                 OUT.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
                 OUT.texcoord2 = float4(v.vertex.x, v.vertex.y, OUT.vertex.x * 0.5 + 0.5, OUT.vertex.y * 0.5 + 0.5);
 
-                OUT.color = v.color * _Color;
+                OUT.color = v.color * float4(1,1,1, _Color.a);
                 return OUT;
             }
 
@@ -107,17 +111,18 @@ Shader "UI/ButtonBackground"
             {
                 float state = IN.color.r;
                 float selectedState = IN.color.g;
-                float3 orange = pow(float3(239, 171, 40) / 255, 2.2);
+                //float3 mainColor = pow(float3(239, 171, 40) / 255, 2.2);
+                float3 mainColor = _ButtonColor;
 
                 float mask = tex2D(_MainTex, IN.texcoord).a;
-                float3 hazeColor = orange * 1.5;
-                float pulse = 0.5 + 0.5 * sin(_Time.y * 4);
-                float3 backgroundColor = orange * (0.6 + 0.4 * pulse) * 1 * (1 - selectedState * 0.5);// pow(float3(30, 30, 30) / 255, 2.2);
+                float3 hazeColor = mainColor * 1.5;
+                float pulse = 0.5 + 0.5 * sin(_Time.y * _AnimationSpeed * 4);
+                float3 backgroundColor = mainColor * (0.6 + 0.4 * pulse) * 1 * (1 - selectedState * 0.5);// pow(float3(30, 30, 30) / 255, 2.2);
                 
                 float2 uv = IN.texcoord2.xy / 128;
 
                 //color.rgb = snoise(float3(uv, _Time.y)) * 0.5f + 0.5f;
-                float noise = perlin(float3(uv, _Time.y * 0.1), 6, 0.6) * 0.5 + 0.5;
+                float noise = perlin(float3(uv, _Time.y * _AnimationSpeed * 0.1), 6, 0.6) * 0.5 + 0.5;
 
 				
                 float4 color = float4(1,1,1,1);
@@ -135,7 +140,7 @@ Shader "UI/ButtonBackground"
                 #endif
 
                 color.rgb = lerp(float3(0.1, 0.1, 0.1), animatedColor, state);
-
+                color.a *= IN.color.a;
 
                 return color;
             }

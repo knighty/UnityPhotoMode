@@ -21,6 +21,8 @@ namespace PhotoMode
 
 		[SerializeField] ShaderFactory shaderFactory;
 
+		[SerializeField] Clarity clarity;
+
 		public PhotoModeSettings Settings { get => settings; set => settings = value; }
 
 		public void Awake()
@@ -45,6 +47,8 @@ namespace PhotoMode
 
 			Settings.ApplyToVolume(volume);
 			Settings.ApplyToCamera(Camera);
+			clarity.ClarityValue = Settings.Clarity;
+			clarity.Vibrance = Settings.Vibrance;
 
 			if (Input.GetKeyDown(KeyCode.I))
 			{

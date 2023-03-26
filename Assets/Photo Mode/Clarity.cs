@@ -16,6 +16,9 @@ public class Clarity : MonoBehaviour
 	private Material blurMaterial;
 	private Material clarityMaterial;
 
+	public float ClarityValue { get => clarity; set => clarity = value; }
+	public float Vibrance { get => vibrance; set => vibrance = value; }
+
 	void Start()
     {
 		Init();

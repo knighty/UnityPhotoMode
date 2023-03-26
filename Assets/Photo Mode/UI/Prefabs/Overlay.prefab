@@ -563,6 +563,7 @@ MonoBehaviour:
   m_Color: {r: 0, g: 0, b: 0, a: 0.98039216}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  compositionOverlay: {fileID: 6603047220973725074}
 --- !u!222 &5557111057686480202
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -731,8 +732,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c2355ca91ee4a46b4cba2882696899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.16862746}
+  m_Material: {fileID: 2100000, guid: cf655424309c8294da57098b39285bef, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.4745098}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   lineWeight: 2
