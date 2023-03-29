@@ -1,0 +1,1 @@
+{"name":"1440p","data":[{"name":"Width","value":"{\"currentValue\":2560.0,\"overriding\":true}"},{"name":"Height","value":"{\"currentValue\":1440.0,\"overriding\":true}"},{"name":"Quality","value":"{\"currentValue\":2,\"overriding\":true}"}],"category":"Image"}

@@ -37,7 +37,7 @@ namespace PhotoMode
 
 		public IEnumerable<Entry> GetShapes()
 		{
-			List<Entry> shapes = new List<Entry>(defaultApertures);
+			List<Entry> shapes = new List<Entry>();// new List<Entry>(defaultApertures);
 
 			DirectoryInfo d = new DirectoryInfo(directory); //Assuming Test is your Folder
 			FileInfo[] Files = d.GetFiles("*.png"); //Getting Text files

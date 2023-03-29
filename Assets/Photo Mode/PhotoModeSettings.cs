@@ -84,10 +84,12 @@ namespace PhotoMode
 	public sealed class CategoryAttribute : Attribute
 	{
 		public readonly string category;
+		public readonly bool saveable;
 
-		public CategoryAttribute(string category)
+		public CategoryAttribute(string category, bool saveable = true)
 		{
 			this.category = category;
+			this.saveable = saveable;
 		}
 	}
 
@@ -125,6 +127,15 @@ namespace PhotoMode
 		private PhotoModeSettingFloat height = new PhotoModeSettingFloat(1080, false);
 
 		[SerializeField]
+		private PhotoModeSettingFloat focalLength = new PhotoModeSettingFloat(50);
+
+		[SerializeField]
+		private PhotoModeSettingFloat sensorHeight = new PhotoModeSettingFloat(24);
+
+		[SerializeField]
+		private PhotoModeSettingFloat fStop = new PhotoModeSettingFloat(1);
+
+		[SerializeField]
 		private PhotoModeSettingFloat aperture = new PhotoModeSettingFloat(35);
 
 		[SerializeField]
@@ -143,7 +154,7 @@ namespace PhotoMode
 		private PhotoModeSettingVector2 lensTilt = new PhotoModeSettingVector2(Vector2.zero);
 
 		[SerializeField]
-		private PhotoModeSettingTonemapper tonemapper = new PhotoModeSettingTonemapper(UnityEngine.Rendering.PostProcessing.Tonemapper.ACES);
+		private PhotoModeSettingTonemapper tonemapper = new PhotoModeSettingTonemapper(PhotoModeTonemapper.ACES);
 
 		[SerializeField]
 		private PhotoModeSettingFloat exposure = new PhotoModeSettingFloat(0);
@@ -223,16 +234,28 @@ namespace PhotoMode
 		[Category(CATEGORY_IMAGE), Min(1), Max(2160), Round(0), Overridable(true)]
 		public PhotoModeSetting<float> Height { get => height; }
 
-		[PhotoModeSetting("Aperture Size")]
+		[PhotoModeSetting("Focal Length")]
+		[Category(CATEGORY_CAMERA), Min(1), Max(200), Round(0)]
+		public PhotoModeSetting<float> FocalLength { get => focalLength; set => focalLength.Value = value; }
+
+		[PhotoModeSetting("Sensor Height")]
+		[Category(CATEGORY_CAMERA), Min(3), Max(50), Round(1)]
+		public PhotoModeSetting<float> SensorHeight { get => sensorHeight; set => sensorHeight.Value = value; }
+
+		[PhotoModeSetting("FStop")]
+		[Category(CATEGORY_CAMERA), Min(1), Max(16), Round(1)]
+		public PhotoModeSetting<float> FStop { get => fStop; set => fStop.Value = value; }
+
+		/*[PhotoModeSetting("Aperture Size")]
 		[Category(CATEGORY_CAMERA), Min(0), Max(200), Round(0)]
 		public PhotoModeSetting<float> Aperture { get => aperture; set => aperture.Value = value; }
 
 		[PhotoModeSetting("Field Of View")]
 		[Min(1), Max(160), Round(0), Category(CATEGORY_CAMERA)]
-		public PhotoModeSetting<float> Fov { get => fov; }
+		public PhotoModeSetting<float> Fov { get => fov; }*/
 
 		[PhotoModeSetting("Focus Distance")]
-		[Min(0.2f), Max(100), Round(2), Category(CATEGORY_CAMERA)]
+		[Min(0.2f), Max(100), Round(2), Category(CATEGORY_CAMERA, false)]
 		public PhotoModeSetting<float> FocusDistance { get => focusDistance; }
 
 		[PhotoModeSetting("Aperture Shape")]
@@ -240,16 +263,16 @@ namespace PhotoMode
 		public PhotoModeSetting<ApertureShape> ApertureShape { get => apertureShape; }
 
 		[PhotoModeSetting("Lens Shift")]
-		[Category(CATEGORY_CAMERA), Min(-0.15f), Max(0.15f)]
+		[Category(CATEGORY_CAMERA, false), Min(-0.15f), Max(0.15f)]
 		public PhotoModeSetting<Vector2> LensShift { get => lensShift; }
 
 		[PhotoModeSetting("Lens Tilt")]
-		[Category(CATEGORY_CAMERA), Min(-45), Max(45)]
+		[Category(CATEGORY_CAMERA, false), Min(-45), Max(45)]
 		public PhotoModeSetting<Vector2> LensTilt { get => lensTilt; }
 
 		[PhotoModeSetting("Tonemapper")]
 		[Overridable(true), Category(CATEGORY_COLOR)]
-		public PhotoModeSetting<Tonemapper> Tonemapper { get => tonemapper; }
+		public PhotoModeSetting<PhotoModeTonemapper> Tonemapper { get => tonemapper; }
 
 		[PhotoModeSetting("Exposure")]
 		[Min(-4), Max(4), Round(1), Overridable(true), Category(CATEGORY_COLOR)]
@@ -314,7 +337,19 @@ namespace PhotoMode
 
 			if (volume.profile.TryGetSettings(out ColorGrading colorGrading))
 			{
-				colorGrading.tonemapper.Override(tonemapper);
+				switch(tonemapper.Value)
+				{
+					case PhotoModeTonemapper.None:
+						colorGrading.tonemapper.Override(UnityEngine.Rendering.PostProcessing.Tonemapper.None);
+						break;
+					case PhotoModeTonemapper.Neutral:
+						colorGrading.tonemapper.Override(UnityEngine.Rendering.PostProcessing.Tonemapper.Neutral);
+						break;
+					case PhotoModeTonemapper.ACES:
+						colorGrading.tonemapper.Override(UnityEngine.Rendering.PostProcessing.Tonemapper.ACES);
+						break;
+				}
+				
 				colorGrading.tonemapper.overrideState = tonemapper.IsOverriding;
 
 				colorGrading.postExposure.Override(exposure);
@@ -388,7 +423,7 @@ namespace PhotoMode
 			return volume;
 		}
 
-		[SerializeField] List<string> jsonSerialize;
+		[SerializeField, HideInInspector] List<string> jsonSerialize;
 		public void OnBeforeSerialize()
 		{
 			jsonSerialize.Clear();

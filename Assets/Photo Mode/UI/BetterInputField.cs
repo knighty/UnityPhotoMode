@@ -8,7 +8,7 @@ public class BetterInputField : MonoBehaviour, ILayoutElement
 
 	InputField inputField;
 
-	InputField InputField { get { return inputField ??= GetComponent<InputField>(); } }
+	InputField InputField { get => inputField ??= GetComponent<InputField>(); }
 
 	public float minWidth => -1;
 
@@ -26,9 +26,21 @@ public class BetterInputField : MonoBehaviour, ILayoutElement
 
 	public void CalculateLayoutInputHorizontal()
 	{
+		RectTransform rectTransform = InputField.textComponent.transform as RectTransform;
+		rectTransform.anchorMin = Vector2.zero;
+		rectTransform.anchorMax = Vector2.one;
+		rectTransform.offsetMin = new Vector2(padding.x, padding.y);
+		rectTransform.offsetMax = new Vector2(-padding.x, -padding.y);
 	}
 
 	public void CalculateLayoutInputVertical()
 	{
 	}
+
+#if UNITY_EDITOR
+	private void OnValidate()
+	{
+		LayoutRebuilder.MarkLayoutForRebuild(this.GetComponent<RectTransform>());
+	}
+#endif
 }

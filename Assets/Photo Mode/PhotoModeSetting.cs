@@ -12,7 +12,7 @@ namespace PhotoMode
 	}
 
 	[Serializable]
-	public abstract class PhotoModeSetting<T> : PhotoModeSetting
+	public abstract class PhotoModeSetting<T> : PhotoModeSetting, ISerializationCallbackReceiver
 	{
 		/*[SerializeField]
 		private bool overriding;
@@ -54,6 +54,15 @@ namespace PhotoMode
 		public void Reset()
 		{
 			OverridingInternal = false;
+			OnChange?.Invoke(this);
+		}
+
+		public void OnBeforeSerialize()
+		{
+		}
+
+		public void OnAfterDeserialize()
+		{
 			OnChange?.Invoke(this);
 		}
 
@@ -102,15 +111,22 @@ namespace PhotoMode
 		protected override bool OverridingInternal { get => overriding; set => overriding = value; }
 	}
 
-	[Serializable]
-	public class PhotoModeSettingTonemapper : PhotoModeSetting<Tonemapper>
+	public enum PhotoModeTonemapper
 	{
-		[SerializeField] private Tonemapper currentValue = Tonemapper.ACES;
+		None,
+		Neutral,
+		ACES
+	}
+
+	[Serializable]
+	public class PhotoModeSettingTonemapper : PhotoModeSetting<PhotoModeTonemapper>
+	{
+		[SerializeField] private PhotoModeTonemapper currentValue = PhotoModeTonemapper.ACES;
 		[SerializeField] private bool overriding = false;
 
-		public PhotoModeSettingTonemapper(Tonemapper value, bool overriding = true) : base(value, overriding) { }
+		public PhotoModeSettingTonemapper(PhotoModeTonemapper value, bool overriding = true) : base(value, overriding) { }
 
-		protected override Tonemapper ValueInternal { get => currentValue; set => currentValue = value; }
+		protected override PhotoModeTonemapper ValueInternal { get => currentValue; set => currentValue = value; }
 		protected override bool OverridingInternal { get => overriding; set => overriding = value; }
 	}
 

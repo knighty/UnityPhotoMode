@@ -112,7 +112,7 @@ namespace PhotoMode
 			{
 				accumulationCameraController.NextAccumulation();
 
-				Vector3 aperturePoint = settings.ApertureShape.Value.GetRandomPoint(accumulationCameraController.accumulator.State.accumulation);
+				Vector3 aperturePoint = settings.ApertureShape.Value.GetRandomPoint(accumulationCameraController.accumulator.State.accumulation, accumulationCameraController.accumulator.Total);
 				float magnitude = 1.0f / numAccumulations * aperturePoint.z;
 				processingMaterial.SetFloat(processingMaterialMagnitude, magnitude);
 				totalAccumulated += magnitude;
@@ -166,7 +166,7 @@ namespace PhotoMode
 				accumulationCameraController.NextAccumulation();
 				camera.Render();
 
-				Vector3 aperturePoint = settings.ApertureShape.Value.GetRandomPoint(accumulationCameraController.accumulator.State.accumulation);
+				Vector3 aperturePoint = settings.ApertureShape.Value.GetRandomPoint(accumulationCameraController.accumulator.State.accumulation, accumulationCameraController.accumulator.Total);
 				float magnitude = 1.0f / numAccumulations * aperturePoint.z;
 				processingMaterial.SetFloat(processingMaterialMagnitude, magnitude);
 				totalAccumulated += magnitude;

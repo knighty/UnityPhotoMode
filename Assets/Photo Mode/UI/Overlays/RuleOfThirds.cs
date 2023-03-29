@@ -5,9 +5,13 @@ using UnityEngine.UI;
 namespace PhotoMode.UI.Overlays
 {
 	[AddComponentMenu("Photo Mode/Overlays/Rule Of Thirds")]
-	public class RuleOfThirds : Graphic
+	public class RuleOfThirds : Graphic, CompositionOverlay
 	{
 		[SerializeField, Range(1, 10)] float lineWeight = 2;
+
+		public string Name => "Rule Of Thirds";
+
+		public bool Enabled { get => gameObject.activeSelf; set => gameObject.SetActive(value); }
 
 		protected override void OnPopulateMesh(VertexHelper vh)
 		{

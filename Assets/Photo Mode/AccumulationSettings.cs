@@ -22,7 +22,7 @@ public sealed class AccumulationRenderer : PostProcessEffectRenderer<Accumulatio
 		// So that's ample for any normal situation but it should be made note of
 		// For a half float it's 0.001 which means we get about 1000 values between 0 and 1
 		// That's nowhere near enough so would need some careful multiplication per sample
-		Vector3 aperture = cameraState.apertureShape.GetRandomPoint(cameraState.accumulation + 1);
+		Vector3 aperture = cameraState.apertureShape.GetRandomPoint(cameraState.accumulation + 1, 1);
 		float magnitude = aperture.z;
 		if (magnitude == 0)
 			return;

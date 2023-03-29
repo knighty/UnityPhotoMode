@@ -35,8 +35,7 @@ namespace PhotoMode.UI
 
 		protected void OnDestroy()
 		{
-			//base.OnDestroy();
-			//setting.OnChange -= OnSettingChanged;
+			//texture.();
 		}
 	}
 }

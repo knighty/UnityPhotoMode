@@ -61,13 +61,11 @@ public class PostProcessingAccumulationCameraAccumulator : AccumulationCameraAcc
 
 	protected void UpdateState()
 	{
-		AccumulationCameraState s = new AccumulationCameraState(camera, photoModeSettings.Aperture, photoModeSettings.FocusDistance, Accumulation)
+		AccumulationCameraState s = new AccumulationCameraState(camera, photoModeSettings.FocusDistance, Accumulation)
 		{
 			apertureShape = photoModeSettings.ApertureShape,
 			lensTilt = photoModeSettings.LensTilt
 		};
-		if (photoModeSettings.Fov.IsOverriding)
-			s.fov = photoModeSettings.Fov;
 
 		currentState = s;
 	}
@@ -108,12 +106,10 @@ public class RenderAccumulationCameraAccumulator : AccumulationCameraAccumulator
 	{
 		get
 		{
-			AccumulationCameraState s = new AccumulationCameraState(camera, photoModeSettings.Aperture, photoModeSettings.FocusDistance, Accumulation)
+			AccumulationCameraState s = new AccumulationCameraState(camera, photoModeSettings.FocusDistance, Accumulation)
 			{
 				apertureShape = photoModeSettings.ApertureShape
 			};
-			if (photoModeSettings.Fov.IsOverriding)
-				s.fov = photoModeSettings.Fov;
 
 			return s;
 		}
@@ -143,6 +139,31 @@ public class AccumulationCameraController : MonoBehaviour
 
 	public AccumulationCameraState cameraState;
 
+	public (float, float) CalculateCamera(float focalLength, float sensorSize, float objectDistance)
+	{
+		// Helpers
+		float halfSensorSize = sensorSize / 2;
+
+		// 1/f = 1/d + 1/i
+		// f = focal distance
+		// d = object (focus) distance
+		// i = image distance
+		float imageDistance = 1.0f / (1.0f / focalLength - 1.0f / objectDistance);
+		float delta = imageDistance - focalLength;
+
+		// fov = atan(sensor size / focal length)
+		float fov = Mathf.Atan(halfSensorSize / imageDistance) * 2.0f;
+		float halfFov = fov / 2.0f;
+
+		float spread = Mathf.Tan(halfFov) * delta * 2;
+		float spreadRatio = spread / sensorSize;
+
+		float x = spread / focalLength * objectDistance;
+		return (fov, x);
+		//Debug.Log($"Image Distance: {imageDistance * 1000}mm, Field of View: {fov * Mathf.Rad2Deg}deg, Spread: {spread * 1000}mm, Spread ratio: {spreadRatio}, Aperture: {x * 1000}");
+
+	}
+
 	static Matrix4x4 PerspectiveOffCenter(float left, float right, float bottom, float top, float near, float far)
 	{
 		float x = 2.0F * near / (right - left);
@@ -161,19 +182,23 @@ public class AccumulationCameraController : MonoBehaviour
 	}
 
 	//http://graphics.stanford.edu/courses/cs248-02/haeberli-akeley-accumulation-buffer-sig90.pdf
-	(Matrix4x4, Vector3) GetProjectionMatrix(AccumulationCameraState state, Camera camera, int total)
+	(Matrix4x4, Vector3) GetProjectionMatrix(AccumulationCameraState state, Camera camera, int total, PhotoModeSettings settings)
 	{
 		if (state.apertureShape == null)
 		{
 			Debug.Log("No aperture shape for calculating projection matrix");
 		}
 
+		(float fov, float aperture) = CalculateCamera(settings.FocalLength / 1000.0f, settings.SensorHeight / 1000.0f, settings.FocusDistance);
+		aperture = settings.SensorHeight / 1000.0f / settings.FStop;
+		camera.fieldOfView = fov * Mathf.Rad2Deg;
+
 		int width = state.width;
 		int height = state.height;
 		int i = state.accumulation;
 
 		float focalPlane = state.focusDistance;
-		float fov = state.fov * (Mathf.PI / 180.0f);
+		//float fov = state.fov * (Mathf.PI / 180.0f);
 		float aspect = (float)width / (float)height;
 
 		// Anti aliasing
@@ -181,10 +206,12 @@ public class AccumulationCameraController : MonoBehaviour
 		Vector2 pixelOffset = new Vector2((i % sqrtTotal) / sqrtTotal - 0.5f, (i / sqrtTotal) / sqrtTotal - 0.5f);
 
 		// Lens offset
-		Vector3 rand = state.apertureShape.GetRandomPoint(state.accumulation);
+		Vector3 rand = state.apertureShape.GetRandomPoint(state.accumulation, total);
 		//Debug.Log($"Set matrix at {state.accumulation} {rand}");
-		float lensdx = rand.x * (state.aperture / 2.0f) / 1000.0f;// * aspect;
-		float lensdy = rand.y * (state.aperture / 2.0f) / 1000.0f;
+		/*float lensdx = rand.x * (state.aperture / 2.0f) / 1000.0f;// * aspect;
+		float lensdy = rand.y * (state.aperture / 2.0f) / 1000.0f;*/
+		float lensdx = rand.x * (aperture / 2.0f);
+		float lensdy = rand.y * (aperture / 2.0f);
 
 		float tanFov = Mathf.Tan(fov / 2.0f) * camera.nearClipPlane;
 		float left = -tanFov * aspect;
@@ -235,6 +262,8 @@ public class AccumulationCameraController : MonoBehaviour
 
 	public int CurrentAccumulation => j;
 
+	public PhotoModeSettings Settings { get; set; }
+
 	public void SetAccmulator(AccumulationCameraAccumulator accmulator)
 	{
 		this.accumulator?.Disable();
@@ -260,7 +289,7 @@ public class AccumulationCameraController : MonoBehaviour
 			OnFrameRendered?.Invoke();
 			// We translate in view space because translating in projection space breaks almost everything in Unity
 			// I'm not sure if this is 100% identical but it seems to work..
-			(Matrix4x4 projection, Vector3 translation) = GetProjectionMatrix(accumulator.State, camera, accumulator.Total);
+			(Matrix4x4 projection, Vector3 translation) = GetProjectionMatrix(accumulator.State, camera, accumulator.Total, Settings);
 			camera.projectionMatrix = projection;
 			//camera.cullingMatrix = GetProjectionMatrix2(camera) * camera.worldToCameraMatrix;
 			//camera.nonJitteredProjectionMatrix = GetProjectionMatrix2(camera);
@@ -273,7 +302,7 @@ public class AccumulationCameraController : MonoBehaviour
 			Matrix4x4 translate = Matrix4x4.Translate(translation);
 
 			camera.worldToCameraMatrix = translate * camera.worldToCameraMatrix;
-			camera.fieldOfView = accumulator.State.fov;
+			//camera.fieldOfView = accumulator.State.fov;
 		}
 
 		/*if (accumulator != null && accumulator.Accumulation != 0)

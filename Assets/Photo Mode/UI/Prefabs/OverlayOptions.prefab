@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7043330741475331411}
   - component: {fileID: 7043330741475331409}
   - component: {fileID: 7043330741475331412}
+  - component: {fileID: 2401277987488450048}
   m_Layer: 5
   m_Name: OverlayOptions
   m_TagString: Untagged
@@ -110,6 +111,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2401277987488450048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7043330741475331423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828731635daf49e47b07457ed6c50453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivotStart: {x: 0, y: 1}
+  pivotEnd: {x: 0, y: 0}
+  pivotX: 0
+  pivotY: 1
 --- !u!1 &7043330741623017459
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,6 +219,7 @@ GameObject:
   - component: {fileID: 7043330741645561132}
   - component: {fileID: 7043330741645561131}
   - component: {fileID: 7043330741645561130}
+  - component: {fileID: 2345348055236537553}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -346,6 +364,19 @@ MonoBehaviour:
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &2345348055236537553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7043330741645561047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3533db6739521bf4b801366b6b742d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  compositionOverlaysRect: {fileID: 0}
 --- !u!1 &7043330741801273897
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,62 +13,118 @@ MonoBehaviour:
   m_Name: Valheim Photo Mode Settings
   m_EditorClassIdentifier: 
   width:
-    overriding: 1
     currentValue: 3840
+    overriding: 1
   height:
-    overriding: 1
     currentValue: 2160
+    overriding: 1
+  focalLength:
+    currentValue: 39.355198
+    overriding: 1
+  sensorHeight:
+    currentValue: 24
+    overriding: 1
+  fStop:
+    currentValue: 1.7715611
+    overriding: 1
   aperture:
-    overriding: 1
     currentValue: 60
+    overriding: 1
   fov:
-    overriding: 1
     currentValue: 48
+    overriding: 1
   focusDistance:
+    currentValue: 0.24918762
     overriding: 1
-    currentValue: 1.1705074
   apertureShape:
-    overriding: 1
     currentValue: {fileID: 11400000, guid: 3a504765dd06bd0418b22ae420667bdd, type: 2}
+    overriding: 1
   lensShift:
-    overriding: 1
     currentValue: {x: 0, y: 0}
+    overriding: 1
   lensTilt:
-    overriding: 1
     currentValue: {x: 0, y: 0}
+    overriding: 1
   tonemapper:
-    overriding: 1
     currentValue: 2
+    overriding: 1
   exposure:
+    currentValue: 0.8666668
     overriding: 1
-    currentValue: 1.2219782
   colorTemperature:
-    overriding: 1
-    currentValue: 10
-  contrast:
-    overriding: 1
     currentValue: -5
+    overriding: 1
+  contrast:
+    currentValue: 2
+    overriding: 1
   saturation:
+    currentValue: -5
     overriding: 1
-    currentValue: 12
+  clarity:
+    currentValue: 0.08333337
+    overriding: 1
+  vibrance:
+    currentValue: 0.75
+    overriding: 1
   bloomThreshold:
+    currentValue: 0.3956044
     overriding: 1
-    currentValue: 0.7956044
   bloomIntensity:
+    currentValue: 0.48333332
     overriding: 1
-    currentValue: 1.0637363
   chromaticAberration:
-    overriding: 1
     currentValue: 0.029545454
+    overriding: 1
   vignette:
-    overriding: 1
     currentValue: 0.25274727
+    overriding: 1
   quality:
+    currentValue: 2
     overriding: 1
-    currentValue: 3
-  timeOfDay:
-    overriding: 1
-    currentValue: 0.0989011
-  environment:
-    overriding: 1
-    currentValue: 1
+  jsonSerialize:
+  - width
+  - '{"currentValue":3840.0,"overriding":true}'
+  - height
+  - '{"currentValue":2160.0,"overriding":true}'
+  - focalLength
+  - '{"currentValue":39.35519790649414,"overriding":true}'
+  - sensorHeight
+  - '{"currentValue":24.0,"overriding":true}'
+  - fStop
+  - '{"currentValue":1.7715611457824708,"overriding":true}'
+  - aperture
+  - '{"currentValue":60.0,"overriding":true}'
+  - fov
+  - '{"currentValue":48.0,"overriding":true}'
+  - focusDistance
+  - '{"currentValue":0.2491876184940338,"overriding":true}'
+  - apertureShape
+  - '{"currentValue":{"instanceID":68248},"overriding":true}'
+  - lensShift
+  - '{"currentValue":{"x":0.0,"y":0.0},"overriding":true}'
+  - lensTilt
+  - '{"currentValue":{"x":0.0,"y":0.0},"overriding":true}'
+  - tonemapper
+  - '{"currentValue":2,"overriding":true}'
+  - exposure
+  - '{"currentValue":0.8666667938232422,"overriding":true}'
+  - colorTemperature
+  - '{"currentValue":-5.0,"overriding":true}'
+  - contrast
+  - '{"currentValue":2.0,"overriding":true}'
+  - saturation
+  - '{"currentValue":-5.0,"overriding":true}'
+  - clarity
+  - '{"currentValue":0.08333337306976319,"overriding":true}'
+  - vibrance
+  - '{"currentValue":0.75,"overriding":true}'
+  - bloomThreshold
+  - '{"currentValue":0.3956044018268585,"overriding":true}'
+  - bloomIntensity
+  - '{"currentValue":0.4833333194255829,"overriding":true}'
+  - chromaticAberration
+  - '{"currentValue":0.029545454308390619,"overriding":true}'
+  - vignette
+  - '{"currentValue":0.2527472674846649,"overriding":true}'
+  - quality
+  - '{"currentValue":2,"overriding":true}'

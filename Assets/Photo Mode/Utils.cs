@@ -74,4 +74,9 @@ public class Utils
 
 		return 1 + c3 * Mathf.Pow(x - 1, 3) + c1 * Mathf.Pow(x - 1, 2);
 	}
+
+	public static float EaseOutQuart(float x)
+	{
+		return 1 - Mathf.Pow(1 - x, 4);
+	}
 }

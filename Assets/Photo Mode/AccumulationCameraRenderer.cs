@@ -97,7 +97,7 @@ namespace PhotoMode
 			{
 				Debug.Log("No aperture shape to accumulate");
 			}
-			Vector3 aperture = cameraState.apertureShape.GetRandomPoint(cameraState.accumulation + frameOffset);
+			Vector3 aperture = cameraState.apertureShape.GetRandomPoint(cameraState.accumulation + frameOffset, cameraController.accumulator.Total);
 			float magnitude = aperture.z;
 			processingMaterial.SetFloat(processingMaterialMagnitude, magnitude);
 			accumulated += magnitude;

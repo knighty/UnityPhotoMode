@@ -8,6 +8,8 @@ public class HistogramGraphic : Graphic
 	[SerializeField] Histogram histogram;
 	[SerializeField] HistogramType type;
 
+	public Histogram Histogram { get => histogram; set => histogram = value; }
+
 	enum HistogramType
 	{
 		Color,

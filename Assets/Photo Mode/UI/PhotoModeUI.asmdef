@@ -1,9 +1,10 @@
 {
     "name": "PhotoModeUI",
-    "rootNamespace": "",
+    "rootNamespace": "PhotoMode.UI",
     "references": [
         "GUID:8695ac973b1290a478a7804409c13de0",
-        "GUID:708642790daf30145894a3efaf54a8b9"
+        "GUID:708642790daf30145894a3efaf54a8b9",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

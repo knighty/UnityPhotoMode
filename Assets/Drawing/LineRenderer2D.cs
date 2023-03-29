@@ -62,8 +62,8 @@ namespace Drawing
 
 				Vector2 p0 = points[i % points.Length];
 
-				Vector2 n = options.PathMode == PathMode.Closed ? points[(i + 1) % points.Length] : (lastPoint ? (p0 - points[i - 1]) : points[i + 1]);
-				Vector2 p = options.PathMode == PathMode.Closed ? points[firstPoint ? (points.Length - 1) : (i - 1)] : (firstPoint ? (points[i + 1] - p0) : points[i - 1]);
+				Vector2 n = options.PathMode == PathMode.Closed ? points[(i + 1) % points.Length] : (lastPoint ? (p0 + (p0 - points[i - 1])) : points[i + 1]);
+				Vector2 p = options.PathMode == PathMode.Closed ? points[firstPoint ? (points.Length - 1) : (i - 1)] : (firstPoint ? (p0 + (p0 - points[i + 1])) : points[i - 1]);
 				Vector2 d0 = p - p0;
 				d0.Normalize();
 				Vector2 d1 = n - p0;

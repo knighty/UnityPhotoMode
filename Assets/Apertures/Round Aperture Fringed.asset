@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657f4a4b193222843b06bb31792df5bc, type: 3}
   m_Name: Round Aperture Fringed
   m_EditorClassIdentifier: 
-  noiseMin: 0
+  noiseMin: 0.6
   noiseMax: 1
   noiseScale: 3
   fringeHighlight: 1
-  fringeExponent: 5
-  fringeMultiplier: 2
+  fringeExponent: 3.5
+  fringeMultiplier: 0.5

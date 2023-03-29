@@ -3,13 +3,34 @@ using UnityEngine.UI;
 
 namespace PhotoMode.UI
 {
-    public class MetricsPanel : MonoBehaviour
-    {
-        [SerializeField] Button toggleButton;
-        [SerializeField] RectTransform panel;
+	public class MetricsPanel : MonoBehaviour
+	{
+		[SerializeField] Button toggleButton;
+		[SerializeField] RectTransform panel;
 		[SerializeField] RectTransform caret;
 
+		[SerializeField] private HistogramGraphic colorHistogram;
+		[SerializeField] private HistogramGraphic luminanceHistogram;
+		[SerializeField] private ProgressBar progressBar;
+
 		float slideState = 1;
+
+		public Histogram Histogram
+		{
+			set
+			{
+				colorHistogram.Histogram = value;
+				luminanceHistogram.Histogram = value;
+			}
+		}
+
+		public AccumulationCameraController Camera
+		{
+			set
+			{
+				progressBar.Camera = value;
+			}
+		}
 
 		private void Start()
 		{

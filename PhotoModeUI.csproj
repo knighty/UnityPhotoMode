@@ -8,7 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>PhotoMode.UI</RootNamespace>
     <ProjectGuid>{D79372F8-30CB-807B-F8C6-5DA9378D4B37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -57,23 +57,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Photo Mode\UI\Overlays\OverlayOptions.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Profiles\ProfilesWindow.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\SliderSetting.cs" />
     <Compile Include="Assets\Photo Mode\UI\FancySlider.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Window.cs" />
+    <Compile Include="Assets\Photo Mode\UI\ImageTexture.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\LensShiftRuler.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Overlays\FocusOverlay.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Overlays\CompositionOverlay.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Metrics.cs" />
     <Compile Include="Assets\Photo Mode\UI\SettingEditor.cs" />
     <Compile Include="Assets\Photo Mode\UI\OptionSelector.cs" />
     <Compile Include="Assets\Photo Mode\UI\TestScriptable.cs" />
+    <Compile Include="Assets\Photo Mode\UI\TabCollection.cs" />
+    <Compile Include="Assets\Photo Mode\UI\ProgressBar.cs" />
+    <Compile Include="Assets\Photo Mode\UI\CompositionOverlayDropdown.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\LensShiftSetting.cs" />
+    <Compile Include="Assets\Photo Mode\UI\MetricsPanel.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\CropOverlay.cs" />
+    <Compile Include="Assets\Photo Mode\UI\TransitionChild.cs" />
     <Compile Include="Assets\Photo Mode\UI\HistogramGraphic.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Overlays\Cross.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\ApertureShapeSetting.cs" />
     <Compile Include="Assets\Photo Mode\UI\TestScriptableChild.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Profiles\ProfileListItem.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\RollOverlay.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\Crosshair.cs" />
     <Compile Include="Assets\Photo Mode\UI\BetterInputField.cs" />
     <Compile Include="Assets\Photo Mode\UI\ApertureShapeDropdown.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\ViewFinder.cs" />
     <Compile Include="Assets\Photo Mode\UI\SelectableSetting.cs" />
+    <Compile Include="Assets\Photo Mode\UI\PhotoModeUI.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Profiles\Profile.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Profiles\ProfileRepository.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\Overlay.cs" />
     <Compile Include="Assets\Photo Mode\UI\TabButton.cs" />
     <Compile Include="Assets\Photo Mode\UI\Settings\OptionSetting.cs" />
@@ -84,10 +100,11 @@
     <Compile Include="Assets\Photo Mode\UI\PhotoModeSettingsEditor.cs" />
     <Compile Include="Assets\Photo Mode\UI\Overlays\RuleOfThirds.cs" />
     <Compile Include="Assets\Photo Mode\UI\WindowBackground.cs" />
-    <Compile Include="Assets\Photo Mode\UI\ProgressBar.cs" />
-    <Compile Include="Assets\Photo Mode\UI\MetricsPanel.cs" />
-    <Compile Include="Assets\Photo Mode\UI\PhotoModeUI.cs" />
-    <Compile Include="Assets\Photo Mode\UI\ImageTexture.cs" />
+    <Compile Include="Assets\Photo Mode\UI\PanelGroupTransitionChild.cs" />
+    <Compile Include="Assets\Photo Mode\UI\PivotTransitionChild.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Options\OptionsWindow.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Options\ScriptableOptions.cs" />
+    <Compile Include="Assets\Photo Mode\UI\Events.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photo Mode\UI\Shaders\OverlayTextured.cginc" />
@@ -706,6 +723,10 @@
     <ProjectReference Include="Drawing.csproj">
       <Project>{B530922C-7122-3266-57E1-6E489648657F}</Project>
       <Name>Drawing</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{DD5F5797-E101-69EB-5D8E-3FA60FD3131E}</Project>
+      <Name>UniRx</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

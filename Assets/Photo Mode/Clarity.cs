@@ -18,6 +18,7 @@ public class Clarity : MonoBehaviour
 
 	public float ClarityValue { get => clarity; set => clarity = value; }
 	public float Vibrance { get => vibrance; set => vibrance = value; }
+	public ShaderFactory ShaderFactory { set => shaderFactory = value; }
 
 	void Start()
     {

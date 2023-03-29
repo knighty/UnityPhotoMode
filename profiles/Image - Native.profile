@@ -1,0 +1,1 @@
+{"name":"Native","data":[{"name":"Width","value":"{\"currentValue\":3840.0,\"overriding\":false}"},{"name":"Height","value":"{\"currentValue\":2160.0,\"overriding\":false}"},{"name":"Quality","value":"{\"currentValue\":2,\"overriding\":true}"}],"category":"Image"}

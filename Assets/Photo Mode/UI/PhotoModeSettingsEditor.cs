@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PhotoMode.UI
 {
@@ -131,7 +132,7 @@ namespace PhotoMode.UI
 	}
 
 
-	public class PhotoModeSettingsEditor : MonoBehaviour, ISerializationCallbackReceiver
+	public partial class PhotoModeSettingsEditor : MonoBehaviour, ISerializationCallbackReceiver
 	{
 		[Serializable]
 		class EditorPrefabFactory
@@ -154,21 +155,65 @@ namespace PhotoMode.UI
 		[SerializeField] List<EditorPrefabFactory> editorPrefabFactories;
 		[SerializeField] RectTransform tabBar;
 		[SerializeField] TabButton tabPrefab;
+		[SerializeField] RectTransform tabSelectedRect;
+		[SerializeField] Button profilesButton;
+		[SerializeField] ProfilesWindow profilesWindow;
+		[SerializeField] Button optionsButton;
+		[SerializeField] OptionsWindow optionsWindow;
 
 		[SerializeField] List<string> serializeEditorPrefabFactoriesName;
 		[SerializeField] List<SettingEditor> serializeEditorPrefabFactoriesPrefab;
+
+		TabCollection tabCollection = new TabCollection();
+		Coroutine tabCoroutine = null;
 
 		public PhotoModeSettings Settings
 		{
 			get => settings;
 			set
 			{
+				profilesWindow.Settings = value;
 				settings = value;
 				AddTabs(settings);
 			}
 		}
 
-		protected void ClearProperties()
+		protected void AddTabs(PhotoModeSettings settings)
+		{
+			tabCollection.AddTabs(
+				settings.GetType().GetProperties()
+					.Select(property => property.GetCustomAttribute<CategoryAttribute>())
+					.Where(attr => attr != null)
+					.Select(attr => attr.category)
+					.Distinct()
+			);
+
+			foreach (TabCollection.Tab tab in tabCollection.Tabs)
+			{
+				TabButton tabButton = Instantiate(tabPrefab, tabBar.transform);
+				tabButton.Text = tab.Name;
+				tabButton.OnClick += tabButton => SelectTab(tab);
+			}
+
+			SelectTab(tabCollection.FindTabByName("Camera"));
+		}
+
+		protected void SelectTab(TabCollection.Tab tab)
+		{
+			if (tabCoroutine != null)
+				StopCoroutine(tabCoroutine);
+
+			tabCoroutine = StartCoroutine(Utils.TweenTime(tabSelectedRect.anchorMin.x, tab.id / (float)tabCollection.Count, 0.5f, x =>
+			{
+				tabSelectedRect.anchorMin = new Vector2(x, 0);
+				tabSelectedRect.anchorMax = new Vector2(x + 1.0f / (float)tabCollection.Count, 1);
+			}, Utils.EaseOutQuart));
+
+			profilesWindow.Category = tab.Name;
+			AddSettings(settings, tab.Name);
+		}
+
+		protected void ClearSettings()
 		{
 			int childs = propertiesList.transform.childCount;
 			for (int i = childs - 1; i >= 0; i--)
@@ -177,35 +222,9 @@ namespace PhotoMode.UI
 			}
 		}
 
-		protected void AddTabs(PhotoModeSettings settings)
-		{
-			HashSet<string> categories = new HashSet<string>();
-			foreach (var property in settings.GetType().GetProperties())
-			{
-				if (property.GetCustomAttribute<CategoryAttribute>() is var category && category != null)
-				{
-					categories.Add(category.category);
-				}
-			}
-
-			foreach (var category in categories)
-			{
-				TabButton tab = Instantiate(tabPrefab, tabBar.transform);
-				tab.Text = category;
-				tab.OnClick += tabButton => SelectCategory(tabButton.Text);
-			}
-
-			AddSettings(settings, "Camera");
-		}
-
-		protected void SelectCategory(string category)
-		{
-			AddSettings(settings, category);
-		}
-
 		protected void AddSettings(PhotoModeSettings settings, string category = "")
 		{
-			ClearProperties();
+			ClearSettings();
 			Dictionary<string, EditorPrefabFactory> factories = new Dictionary<string, EditorPrefabFactory>();
 			foreach (var factory in editorPrefabFactories)
 			{
@@ -269,6 +288,19 @@ namespace PhotoMode.UI
 			{
 				AddTabs(settings);
 			}
+
+			profilesButton.onClick.AddListener(OnClickProfilesButton);
+			optionsButton.onClick.AddListener(OnClickOptionsButton);
+		}
+
+		private void OnClickProfilesButton()
+		{
+			profilesWindow.gameObject.SetActive(!profilesWindow.gameObject.activeSelf);
+		}
+
+		private void OnClickOptionsButton()
+		{
+			optionsWindow.gameObject.SetActive(!optionsWindow.gameObject.activeSelf);
 		}
 
 		private void Update()

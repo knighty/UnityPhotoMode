@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering.PostProcessing;
 
 namespace PhotoMode
@@ -36,6 +37,11 @@ namespace PhotoMode
 			AccumulationCameraController.SetAccmulator(postProcessingAccumulator);
 		}
 
+		public void Start()
+		{
+			GetComponent<AccumulationCameraController>().Settings = settings;
+		}
+
 		Coroutine activeRender = null;
 
 		public void Update()
@@ -50,36 +56,31 @@ namespace PhotoMode
 			clarity.ClarityValue = Settings.Clarity;
 			clarity.Vibrance = Settings.Vibrance;
 
-			if (Input.GetKeyDown(KeyCode.I))
+			/*if (Input.GetKeyDown(KeyCode.I))
 			{
 				photoModeRenderer.Render(Camera, Settings, output);
-			}
+			}*/
 
-			if (Input.GetKeyDown(KeyCode.O))
+			if (EventSystem.current.currentSelectedGameObject == null)
 			{
-				if (activeRender == null)
+				if (Input.GetKeyDown(KeyCode.O))
 				{
-					activeRender = StartCoroutine(photoModeRenderer.RenderRealtime(Camera, Settings, output, (result) =>
+					if (activeRender == null)
 					{
-						Debug.Log($"--- Render completed ---");
-						Debug.Log($"Time Taken: {result.Duration}s");
-						Debug.Log($"Frames Rendered: {result.Frames}s");
-						activeRender = null;
-					}));
+						activeRender = StartCoroutine(photoModeRenderer.RenderRealtime(Camera, Settings, output, (result) =>
+						{
+							Debug.Log($"--- Render completed ---");
+							Debug.Log($"Time Taken: {result.Duration}s");
+							Debug.Log($"Frames Rendered: {result.Frames}s");
+							activeRender = null;
+						}));
+					}
 				}
-			}
 
-			if (Input.GetKeyDown(KeyCode.U))
-			{
-				if (Physics.Raycast(new Ray(transform.position, transform.forward), out RaycastHit hitInfo))
+				if (Input.GetKeyDown(KeyCode.T))
 				{
-					settings.FocusDistance.Value = hitInfo.distance;
+					Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 				}
-			}
-
-			if (Input.GetKeyDown(KeyCode.T))
-			{
-				Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 			}
 		}
 

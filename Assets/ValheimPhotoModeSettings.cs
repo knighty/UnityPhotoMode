@@ -11,7 +11,7 @@ public class ValheimPhotoModeSettings : PhotoModeSettings
 	const string CATEGORY_WORLD = "World";
 
 	[SerializeField]
-	private PhotoModeSetting<float> timeOfDay = new PhotoModeSettingFloat(0.5f, true);
+	private PhotoModeSetting<float> timeOfDay = new PhotoModeSettingFloat(0.3f, true);
 
 	[SerializeField]
 	private PhotoModeSetting<Environments> environment = new PhotoModeSettingEnvironments(Environments.Clear, true);

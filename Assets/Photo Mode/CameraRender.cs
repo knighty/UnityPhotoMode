@@ -15,11 +15,10 @@ public class AccumulationCameraState
 	public Vector2 lensShift;
 	public Vector2 lensTilt;
 
-	public AccumulationCameraState(Camera camera, float aperture, float focusDistance, int accumulation)
+	public AccumulationCameraState(Camera camera, float focusDistance, int accumulation)
 	{
 		this.width = camera.pixelWidth;
 		this.height = camera.pixelHeight;
-		this.aperture = aperture;
 		this.fov = camera.fieldOfView;
 		this.focusDistance = focusDistance;
 		this.position = camera.transform.position;

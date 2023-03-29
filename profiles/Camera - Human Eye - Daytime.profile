@@ -1,0 +1,1 @@
+{"name":"Human Eye - Daytime","data":[{"name":"FocalLength","value":"{\"currentValue\":22.0,\"overriding\":true}"},{"name":"SensorHeight","value":"{\"currentValue\":24.0,\"overriding\":true}"},{"name":"FStop","value":"{\"currentValue\":10.0,\"overriding\":true}"},{"name":"ApertureShape","value":"{\"currentValue\":{\"instanceID\":68424},\"overriding\":true}"}],"category":"Camera"}

@@ -1,0 +1,1 @@
+{"name":"1080p","data":[{"name":"Width","value":"{\"currentValue\":1920.0,\"overriding\":true}"},{"name":"Height","value":"{\"currentValue\":1080.0,\"overriding\":true}"},{"name":"Quality","value":"{\"currentValue\":2,\"overriding\":true}"}],"category":"Image"}

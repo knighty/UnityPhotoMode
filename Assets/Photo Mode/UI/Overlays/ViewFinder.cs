@@ -13,6 +13,8 @@ namespace PhotoMode.UI.Overlays
 		{
 			set
 			{
+				if (value == null)
+					return;
 				horizontalLensShiftRuler.LensShiftSetting = value.LensShift;
 				verticalLensShiftRuler.LensShiftSetting = value.LensShift;
 			}

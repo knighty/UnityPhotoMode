@@ -87,6 +87,8 @@ namespace PhotoMode
 		public void Output(RenderTexture texture)
 		{
 			string file = Regex.Replace(filePath, "%([a-z\\-]*)%", MatchToken);
+			var directory = Path.GetDirectoryName(file);
+			Directory.CreateDirectory(directory);
 			SaveTextureToFileUtility.SaveRenderTextureToFile(texture, file, fileFormat, 100);
 
 			/*Texture2D tex;

@@ -17,7 +17,8 @@ namespace PhotoMode
 
 		public ComputeBuffer HistogramBuffer { get => histogramBuffer; }
 		public ComputeBuffer HistogramMaxBuffer { get => histogramMaxBuffer; }
-		
+		public ComputeShader Shader { set => shader = value; }
+
 		void Start()
 		{
 			if (null == shader)

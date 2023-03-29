@@ -14,10 +14,12 @@ namespace PhotoMode.UI
 
 		protected override void OnPopulateMesh(VertexHelper vh)
 		{
+			vh.Clear();
+			if (mainTexture == null)
+				return;
 			Rect rect = GetPixelAdjustedRect();
 			float w = (rect.width / mainTexture.width) * scale;
 			float h = (rect.height / mainTexture.height) * scale;
-			vh.Clear();
 			vh.AddUIVertexQuad(new UIVertex[] {
 				new UIVertex(){ position = new Vector2(rect.xMin, rect.yMax), color = Color.white, uv0 = new Vector4(0, 0, 0, 0)},
 				new UIVertex(){ position = new Vector2(rect.xMin, rect.yMin), color = Color.white, uv0 = new Vector4(0, h, 0, 0)},
@@ -26,10 +28,12 @@ namespace PhotoMode.UI
 			});
 		}
 
+#if UNITY_EDITOR
 		protected override void OnValidate()
 		{
 			base.OnValidate();
 			SetVerticesDirty();
 		}
+#endif
 	}
 }

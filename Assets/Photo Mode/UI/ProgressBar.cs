@@ -18,6 +18,14 @@ public class ProgressBar : MonoBehaviour
 		}
 	}
 
+	public AccumulationCameraController Camera
+	{
+		set
+		{
+			accumulationCameraController = value;
+		}
+	}
+
 	private void UpdateBar()
 	{
 		bar.anchorMax = new Vector2(progress, 1);
@@ -30,7 +38,7 @@ public class ProgressBar : MonoBehaviour
 
 	private void Update()
 	{
-		if (accumulationCameraController.accumulator != null)
+		if (accumulationCameraController != null && accumulationCameraController.accumulator != null)
 		{
 			Progress = Mathf.Min(1, (float)accumulationCameraController.accumulator.Accumulation / (float)accumulationCameraController.accumulator.Total);
 			text.text = $"Rendering - {accumulationCameraController.accumulator.Accumulation} / {accumulationCameraController.accumulator.Total}";

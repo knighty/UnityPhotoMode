@@ -5,7 +5,7 @@ namespace PhotoMode
 {
 	public abstract class ApertureShape : ScriptableObject
 	{
-		public abstract Vector3 GetRandomPoint(int seed);
+		public abstract Vector3 GetRandomPoint(int seed, int total);
 		public void RenderPreview(Texture2D texture, int samplesPerPixel = 1)
 		{
 			if (samplesPerPixel == 0)

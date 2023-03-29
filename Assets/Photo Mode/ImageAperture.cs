@@ -16,7 +16,7 @@ namespace PhotoMode
 			return color.r;
 		}
 
-		public override Vector3 GetRandomPoint(int seed)
+		public override Vector3 GetRandomPoint(int seed, int total)
 		{
 			UnityEngine.Random.InitState(seed);
 			if (texture == null)
