@@ -26,5 +26,6 @@ public class TestPhotoModeController : MonoBehaviour
 			ui.ToggleVisible();
 		}
 		flyCamera.Speed = options.CameraSpeed.Value;
+		flyCamera.ControlMode = options.ControlMode.Value;
 	}
 }

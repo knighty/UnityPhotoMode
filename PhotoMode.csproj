@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Photo Mode\FlyCamera.cs" />
     <Compile Include="Assets\Photo Mode\ApertureShapeRepository.cs" />
+    <Compile Include="Assets\Photo Mode\FlyCameraControl.cs" />
     <Compile Include="Assets\Photo Mode\ImageAperture.cs" />
     <Compile Include="Assets\Photo Mode\Utils.cs" />
     <Compile Include="Assets\Photo Mode\AccumulationCameraRenderer.cs" />
@@ -68,17 +69,22 @@
     <Compile Include="Assets\Photo Mode\PhotoModeSetting.cs" />
     <Compile Include="Assets\Photo Mode\CameraCalculator.cs" />
     <Compile Include="Assets\Photo Mode\AccumulationCameraController.cs" />
+    <Compile Include="Assets\Photo Mode\FlyCameraInput.cs" />
     <Compile Include="Assets\Photo Mode\FilePhotoModeOutput.cs" />
+    <Compile Include="Assets\Photo Mode\StandardFlyCameraInput.cs" />
     <Compile Include="Assets\Photo Mode\SquareAperture.cs" />
     <Compile Include="Assets\Photo Mode\PhotoModeOutput.cs" />
     <Compile Include="Assets\Photo Mode\Clarity.cs" />
     <Compile Include="Assets\Photo Mode\Histogram.cs" />
+    <Compile Include="Assets\Photo Mode\FlyCameraInputMode.cs" />
     <Compile Include="Assets\Photo Mode\RoundAperture.cs" />
     <Compile Include="Assets\Photo Mode\MultiPhotoModeOutput.cs" />
     <Compile Include="Assets\Photo Mode\ApertureShape.cs" />
     <Compile Include="Assets\Photo Mode\CameraRender.cs" />
+    <Compile Include="Assets\Photo Mode\UnityFlyCameraInputMode.cs" />
     <Compile Include="Assets\Photo Mode\TexturePhotoModeOutput.cs" />
     <Compile Include="Assets\Photo Mode\PhotoMode.cs" />
+    <Compile Include="Assets\Photo Mode\BlenderFlyCameraInputMode.cs" />
     <Compile Include="Assets\Photo Mode\PhotoModeRenderer.cs" />
   </ItemGroup>
   <ItemGroup>

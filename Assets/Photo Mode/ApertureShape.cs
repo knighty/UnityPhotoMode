@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PhotoMode
 {
 	public abstract class ApertureShape : ScriptableObject
 	{
-		public abstract Vector3 GetRandomPoint(int seed, int total);
+		List<Vector3> samples = new List<Vector3>();
+
+		public abstract Vector3 GetSample(int seed, int total);
+		public abstract float GetMagnitudeAt(float x, float y);
+		
 		public void RenderPreview(Texture2D texture, int samplesPerPixel = 1)
 		{
 			if (samplesPerPixel == 0)
@@ -37,6 +42,25 @@ namespace PhotoMode
 			texture.SetPixels(colors);
 			texture.Apply();
 		}
-		public abstract float GetMagnitudeAt(float x, float y);
+
+		private void CacheSamples(int total)
+		{
+			if (total != samples.Count)
+			{
+				samples = new List<Vector3>();
+				samples.Capacity = total;
+				for (int i = 0; i < total; i++)
+				{
+					samples.Add(GetSample(i, total));
+				}
+			}
+		}
+
+		public Vector3 GetRandomPoint(int id, int total)
+		{
+			id = Math.Max(0, Math.Min(id, total - 1));
+			CacheSamples(total);
+			return samples[id];
+		}
 	}
 }

@@ -39,7 +39,7 @@ namespace PhotoMode
 			return (noise + fringe) * (1 - t);
 		}
 
-		public override Vector3 GetRandomPoint(int seed, int total)
+		public override Vector3 GetSample(int seed, int total)
 		{
 			UnityEngine.Random.InitState(seed);
 			Vector2 rand = UnityEngine.Random.insideUnitCircle;

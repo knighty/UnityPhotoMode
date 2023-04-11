@@ -745,6 +745,10 @@
       <Project>{5C688CD3-B6B0-5FD8-00F1-03B90CA3CA6B}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{DD5F5797-E101-69EB-5D8E-3FA60FD3131E}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
     <ProjectReference Include="PhotoModeUI.csproj">
       <Project>{D79372F8-30CB-807B-F8C6-5DA9378D4B37}</Project>
       <Name>PhotoModeUI</Name>

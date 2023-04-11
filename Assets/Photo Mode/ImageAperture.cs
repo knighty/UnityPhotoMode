@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -16,9 +17,8 @@ namespace PhotoMode
 			return color.r;
 		}
 
-		public override Vector3 GetRandomPoint(int seed, int total)
+		public override Vector3 GetSample(int seed, int total)
 		{
-			UnityEngine.Random.InitState(seed);
 			if (texture == null)
 			{
 				return new Vector3(UnityEngine.Random.value * 2 - 1, UnityEngine.Random.value * 2 - 1, 1);

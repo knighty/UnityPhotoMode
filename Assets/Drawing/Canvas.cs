@@ -1,33 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 namespace Drawing
 {
-	public class FillPaint
+	public struct FillPaint
 	{
-		public Color Color = Color.white;
+		public Color Color;
+
+		public FillPaint(Color color)
+		{
+			Color = color;
+		}
 	}
 
-	public class StrokePaint
+	public struct StrokePaint
 	{
-		public float Weight = 0;
-		public Color Color = Color.white;
+		public float Weight;
+		public Color Color;
+
+		public StrokePaint(float weight, Color color)
+		{
+			Weight = weight;
+			Color = color;
+		}
 	}
 
 	public class DrawingCanvas 
 	{
-		internal VertexHelper vertexHelper;
+		private VertexHelper vertexHelper;
 
-		public ArcRenderer ArcRenderer = new ArcRenderer();
-		public LineRenderer2D LineRenderer = new LineRenderer2D();
+		private ArcRenderer ArcRenderer = new ArcRenderer();
+		private LineRenderer2D LineRenderer = new LineRenderer2D();
 
 		public FillPaint FillPaint { get; set; } = new FillPaint();
 		public StrokePaint StrokePaint { get; set; } = new StrokePaint();
+		public VertexHelper VertexHelper { set => vertexHelper = value; }
 
-		public DrawingCanvas(VertexHelper vertexHelper)
+		public DrawingCanvas(VertexHelper vertexHelper = null)
 		{
 			this.vertexHelper = vertexHelper;
 		}
@@ -46,13 +55,9 @@ namespace Drawing
 		public void DrawLine(Vector2[] points, PathMode pathMode = PathMode.Open)
 		{
 			LineRendererHelper helper = new LineRendererHelper(vertexHelper);
-			LineRendererOptions options = new LineRendererOptions()
-			{
-				FillPaint = FillPaint,
-				StrokePaint = StrokePaint,
-				PathMode = pathMode
-			};
-			LineRenderer.Render(helper, points, options);
+			LineRendererOptions options = new LineRendererOptions(FillPaint, StrokePaint);
+			options.PathMode = pathMode;
+			LineRenderer.Render(helper, options, points);
 		}
 
 		public void DrawQuad(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)

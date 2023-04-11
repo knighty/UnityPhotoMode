@@ -17,6 +17,11 @@ namespace PhotoMode
 			outputs.Add(output);
 		}
 
+		public void ClearOutputs()
+		{
+			outputs.Clear();
+		}
+
 		public void Output(RenderTexture texture)
 		{
 			foreach (var output in outputs)

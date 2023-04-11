@@ -11,9 +11,8 @@ namespace PhotoMode
 			return 1;
 		}
 
-		public override Vector3 GetRandomPoint(int seed, int total)
+		public override Vector3 GetSample(int seed, int total)
 		{
-			UnityEngine.Random.InitState(seed);
 			return new Vector3(UnityEngine.Random.value * 2 - 1, UnityEngine.Random.value * 2 - 1, 1);
 		}
 	}

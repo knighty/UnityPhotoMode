@@ -121,73 +121,73 @@ namespace PhotoMode
 		const string CATEGORY_LIGHTING = "Lighting";
 
 		[SerializeField]
-		private PhotoModeSettingFloat width = new PhotoModeSettingFloat(1920, false);
+		private PhotoModeSetting<float> width = new PhotoModeSetting<float>(1920, false);
 
 		[SerializeField]
-		private PhotoModeSettingFloat height = new PhotoModeSettingFloat(1080, false);
+		private PhotoModeSetting<float> height = new PhotoModeSetting<float>(1080, false);
 
 		[SerializeField]
-		private PhotoModeSettingFloat focalLength = new PhotoModeSettingFloat(50);
+		private PhotoModeSetting<float> focalLength = new PhotoModeSetting<float>(50);
 
 		[SerializeField]
-		private PhotoModeSettingFloat sensorHeight = new PhotoModeSettingFloat(24);
+		private PhotoModeSetting<float> sensorHeight = new PhotoModeSetting<float>(24);
 
 		[SerializeField]
-		private PhotoModeSettingFloat fStop = new PhotoModeSettingFloat(1);
+		private PhotoModeSetting<float> fStop = new PhotoModeSetting<float>(1);
 
 		[SerializeField]
-		private PhotoModeSettingFloat aperture = new PhotoModeSettingFloat(35);
+		private PhotoModeSetting<float> aperture = new PhotoModeSetting<float>(35);
 
 		[SerializeField]
-		private PhotoModeSettingFloat fov = new PhotoModeSettingFloat(60);
+		private PhotoModeSetting<float> fov = new PhotoModeSetting<float>(60);
 
 		[SerializeField]
-		private PhotoModeSettingFloat focusDistance = new PhotoModeSettingFloat(1000);
+		private PhotoModeSetting<float> focusDistance = new PhotoModeSetting<float>(1000);
 
 		[SerializeField]
-		private PhotoModeSettingApertureShape apertureShape = new PhotoModeSettingApertureShape(null);
+		private PhotoModeSetting<ApertureShape> apertureShape = new PhotoModeSetting<ApertureShape>(null);
 
 		[SerializeField]
-		private PhotoModeSettingVector2 lensShift = new PhotoModeSettingVector2(Vector2.zero);
+		private PhotoModeSetting<Vector2> lensShift = new PhotoModeSetting<Vector2>(Vector2.zero);
 
 		[SerializeField]
-		private PhotoModeSettingVector2 lensTilt = new PhotoModeSettingVector2(Vector2.zero);
+		private PhotoModeSetting<Vector2> lensTilt = new PhotoModeSetting<Vector2>(Vector2.zero);
 
 		[SerializeField]
-		private PhotoModeSettingTonemapper tonemapper = new PhotoModeSettingTonemapper(PhotoModeTonemapper.ACES);
+		private PhotoModeSetting<PhotoModeTonemapper> tonemapper = new PhotoModeSetting<PhotoModeTonemapper>(PhotoModeTonemapper.ACES);
 
 		[SerializeField]
-		private PhotoModeSettingFloat exposure = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> exposure = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat colorTemperature = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> colorTemperature = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat contrast = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> contrast = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat saturation = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> saturation = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat clarity = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> clarity = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat vibrance = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> vibrance = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat bloomThreshold = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> bloomThreshold = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat bloomIntensity = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> bloomIntensity = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat chromaticAberration = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> chromaticAberration = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingFloat vignette = new PhotoModeSettingFloat(0);
+		private PhotoModeSetting<float> vignette = new PhotoModeSetting<float>(0);
 
 		[SerializeField]
-		private PhotoModeSettingPhotoModeQuality quality = new PhotoModeSettingPhotoModeQuality(PhotoModeQuality.High);
+		private PhotoModeSetting<PhotoModeQuality> quality = new PhotoModeSetting<PhotoModeQuality>(PhotoModeQuality.High);
 
 		Action<PhotoModeSetting> onChange;
 
@@ -337,7 +337,7 @@ namespace PhotoMode
 
 			if (volume.profile.TryGetSettings(out ColorGrading colorGrading))
 			{
-				switch(tonemapper.Value)
+				switch (tonemapper.Value)
 				{
 					case PhotoModeTonemapper.None:
 						colorGrading.tonemapper.Override(UnityEngine.Rendering.PostProcessing.Tonemapper.None);
@@ -349,7 +349,7 @@ namespace PhotoMode
 						colorGrading.tonemapper.Override(UnityEngine.Rendering.PostProcessing.Tonemapper.ACES);
 						break;
 				}
-				
+
 				colorGrading.tonemapper.overrideState = tonemapper.IsOverriding;
 
 				colorGrading.postExposure.Override(exposure);

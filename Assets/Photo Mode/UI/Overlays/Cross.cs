@@ -43,6 +43,7 @@ namespace PhotoMode.UI.Overlays
 		protected override void OnValidate()
 		{
 			SetVerticesDirty();
+			SetMaterialDirty();
 		}
 #endif
 	}

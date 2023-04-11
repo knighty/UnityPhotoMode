@@ -3,14 +3,15 @@ using UnityEngine.UI;
 
 namespace Drawing
 {
-	public class ArcRendererHelper
+	public struct ArcRendererHelper
 	{
 		internal FillPaint fillPaint;
 		internal VertexHelper vertexHelper;
-		int index = 0;
+		int index;
 
 		public ArcRendererHelper(FillPaint fillPaint, VertexHelper vh)
 		{
+			index = vh.currentVertCount;
 			this.fillPaint = fillPaint;
 			this.vertexHelper = vh;
 		}

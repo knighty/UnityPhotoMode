@@ -27,11 +27,13 @@ namespace PhotoMode.UI
 		[SerializeField] OptionData<bool> saveJPG = new OptionData<bool>(true);
 		[SerializeField] OptionData<bool> savePNG = new OptionData<bool>(false);
 		[SerializeField] OptionData<bool> saveClipboard = new OptionData<bool>(false);
+		[SerializeField] OptionData<FlyCamera.FlyControlMode> controlMode = new OptionData<FlyCamera.FlyControlMode>(FlyCamera.FlyControlMode.Blender);
 
 		public Option<string> ScreenshotFolder { get => screenshotFolder; }
 		public Option<float> CameraSpeed { get => cameraSpeed; }
-		public Option<bool> SaveJPG { get => saveJPG ; }
-		public Option<bool> SavePNG { get => savePNG ; }
-		public Option<bool> SaveClipboard { get => saveClipboard ; }
+		public Option<bool> SaveJPG { get => saveJPG; }
+		public Option<bool> SavePNG { get => savePNG; }
+		public Option<bool> SaveClipboard { get => saveClipboard; }
+		public Option<FlyCamera.FlyControlMode> ControlMode { get => controlMode; }
 	}
 }

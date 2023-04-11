@@ -152,6 +152,7 @@ namespace PhotoMode.UI
 		[SerializeField] PhotoModeSettings settings;
 		[SerializeField] GameObject propertiesList;
 		[SerializeField] SettingEditor floatPrefab;
+		[SerializeField] SettingEditor boolPrefab;
 		[SerializeField] List<EditorPrefabFactory> editorPrefabFactories;
 		[SerializeField] RectTransform tabBar;
 		[SerializeField] TabButton tabPrefab;
@@ -251,12 +252,18 @@ namespace PhotoMode.UI
 					{
 						switch (setting)
 						{
-							case PhotoModeSettingFloat floatSetting:
+							case PhotoModeSetting<float> floatSetting:
 								{
 									editor = Instantiate(floatPrefab);
 									editor.PropertyInfo = property;
 									editor.Setting = floatSetting;
-
+									break;
+								}
+							case PhotoModeSetting<bool> boolSetting:
+								{
+									editor = Instantiate(boolPrefab);
+									editor.PropertyInfo = property;
+									editor.Setting = boolSetting;
 									break;
 								}
 						}

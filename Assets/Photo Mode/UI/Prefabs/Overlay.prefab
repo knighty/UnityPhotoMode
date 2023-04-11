@@ -132,11 +132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67d9d208dff362e45b4bf1ed49ab4555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: cf655424309c8294da57098b39285bef, type: 2}
+  m_Material: {fileID: 2100000, guid: 339da87f55e239e458a25a4d790042bc, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.62352943}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  lineWeight: 1
+  lineWeight: 2.24
 --- !u!1 &1693848813728899929
 GameObject:
   m_ObjectHideFlags: 0

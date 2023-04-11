@@ -1,12 +1,18 @@
+using System.Windows.Forms;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
 namespace PhotoMode
 {
 	public class FlyCamera : MonoBehaviour
 	{
+		public enum FlyControlMode
+		{
+			Blender,
+			Unity
+		}
+
 		[SerializeField] protected float friction = 0.1f;
 		[SerializeField] protected float frictionTime = 0.3f;
 		[SerializeField] private float speed = 0.4f;
@@ -18,13 +24,30 @@ namespace PhotoMode
 		protected Vector3 yawPitchRoll = Vector3.zero;
 		protected Vector3 velocity = Vector3.zero;
 
+		private FlyCameraControl flyCameraControl = new FlyCameraControl();
+		private FlyCameraInput flyCameraInput;
+		private FlyCameraInputMode flyCameraInputMode;
+		private FlyControlMode controlMode = FlyControlMode.Blender;
+		protected Vector3 originPosition = new Vector3(0, 0, 10);
+
+		private BlenderFlyCameraInputMode blenderFlyCameraInputMode = new BlenderFlyCameraInputMode();
+		private UnityFlyCameraInputMode unityFlyCameraInputMode = new UnityFlyCameraInputMode();
+
 		public bool Enabled { get; set; } = false;
 		public PhotoModeSettings Settings { get => settings; set => settings = value; }
 		public float Speed { get => speed; set => speed = value; }
 
+		public FlyControlMode ControlMode { get => controlMode; set => controlMode = value; }
+		public FlyCameraInput FlyCameraInput { get => flyCameraInput; set => flyCameraInput = value; }
+
 		private void Start()
 		{
 			this.enabled = false;
+
+			if (flyCameraInput == null)
+			{
+				flyCameraInput = new StandardFlyCameraInput();
+			}
 		}
 
 		private void OnEnable()
@@ -34,22 +57,20 @@ namespace PhotoMode
 
 		void Update()
 		{
-			/*if (Input.GetKeyDown(KeyCode.P))
+			float dt = Time.unscaledDeltaTime;
+
+			flyCameraControl.Reset();
+
+			switch (controlMode)
 			{
-				if (!Enabled)
-				{
-					position = transform.position;
-					rotation = transform.rotation;
-					velocity = Vector3.zero;
-					yawPitchRoll = Vector3.zero;
-				}
-				Enabled = !Enabled;
+				case FlyControlMode.Blender:
+					flyCameraInputMode = blenderFlyCameraInputMode; break;
+				case FlyControlMode.Unity:
+					flyCameraInputMode = unityFlyCameraInputMode; break;
 			}
 
-			if (!Enabled)
-				return;*/ 
-
-			float dt = Time.unscaledDeltaTime;
+			if (flyCameraInputMode != null)
+				flyCameraInputMode.Process(flyCameraInput, ref flyCameraControl);
 
 			Vector3 forward = rotation * Vector3.forward;
 			Vector3 up = rotation * Vector3.up;
@@ -57,34 +78,34 @@ namespace PhotoMode
 
 			Vector3 move = Vector3.zero;
 
-			float speedMultiplier = 1;
+			FlyCameraControl control = flyCameraControl;
 
-			if (Input.GetKey(KeyCode.W))
-				move += forward;
-			if (Input.GetKey(KeyCode.S))
-				move -= forward;
-			if (Input.GetKey(KeyCode.A))
-				move -= right;
-			if (Input.GetKey(KeyCode.D))
-				move += right;
-			if (Input.GetKey(KeyCode.Space))
-				move += up;
-			if (Input.GetKey(KeyCode.LeftControl))
-				move -= up;
-			if (Input.GetKey(KeyCode.LeftShift))
-				speedMultiplier = shiftSpeed;
+			move += forward * control.fly.z;
+			move += right * control.fly.x;
+			move += up * control.fly.y;
+			float speedMultiplier = control.speedMultiplier;
 
-			if (Input.GetKey(KeyCode.Q))
-				yawPitchRoll.z += dt * 50;
-			if (Input.GetKey(KeyCode.E))
-				yawPitchRoll.z -= dt * 50;
+			yawPitchRoll.z += control.roll * dt * 50;
 
-			if (Input.GetMouseButtonDown((int)MouseButton.MiddleMouse))
-			{
-				yawPitchRoll.y = 0;
-				yawPitchRoll.z = 0;
-			}
+			// Moving on origin
+			position += (right * control.moveAlongOrigin.x + up * control.moveAlongOrigin.y) * originPosition.magnitude * 0.01f;
 
+			// Rotating on origin
+			float mult = GetComponent<Camera>().fieldOfView / 45.0f;
+			Quaternion r1 = Quaternion.Euler(yawPitchRoll.y, yawPitchRoll.x, 0f);
+			yawPitchRoll.x += control.rotateAroundOrigin.x * mult;
+			yawPitchRoll.y += control.rotateAroundOrigin.y * mult;
+			yawPitchRoll.y = Mathf.Clamp(yawPitchRoll.y, -89, 89);
+			Quaternion r2 = Quaternion.Euler(yawPitchRoll.y, yawPitchRoll.x, 0f);
+			position = position + (r2 * -originPosition - r1 * -originPosition);
+
+			// Zoom origin
+			Vector3 o = originPosition;
+			originPosition.z *= (1 + control.moveOrigin * 0.1f);
+			originPosition.z = Mathf.Clamp(originPosition.z, 0.1f, 100.0f);
+			position += rotation * -originPosition - rotation * -o;
+
+			// Fly move
 			if (move.sqrMagnitude > 0)
 				move.Normalize();
 
@@ -92,38 +113,24 @@ namespace PhotoMode
 			velocity = velocity * frictionFactor;
 			velocity += move * dt * speed * speedMultiplier;
 
-			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
+			// Cursor state
+			Cursor.lockState = control.hideCursor ? CursorLockMode.Locked : CursorLockMode.None;
+			Cursor.visible = !control.hideCursor;
 
-			if (Input.GetMouseButton((int)MouseButton.RightMouse))
+			// Rotate
+			float yprMagnitude = GetComponent<Camera>().fieldOfView / 45.0f;
+			yawPitchRoll.x += control.yaw * yprMagnitude;
+			yawPitchRoll.y += control.pitch * yprMagnitude;
+
+			// Settings
+			if (settings != null)
 			{
-				Vector2 mouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-				float mult = GetComponent<Camera>().fieldOfView / 45.0f;
-				yawPitchRoll.x += mouse.x * mult;
-				yawPitchRoll.y -= mouse.y * mult;
-				Cursor.lockState = CursorLockMode.Locked;
-				Cursor.visible = false;
-			}
-			else
-			{
-				if (settings != null)
-				{
-					if (Mathf.Abs(Input.mouseScrollDelta.y) > 0)
-					{
-						if (Input.GetKey(KeyCode.LeftShift))
-						{
-							settings.FStop.Value = Mathf.Clamp(settings.FStop * (1 - Input.mouseScrollDelta.y * 0.1f), 1, 16);
-						}
-						else if (Input.GetKey(KeyCode.LeftAlt))
-						{
-							settings.Exposure.Value = Mathf.Clamp(settings.Exposure + Input.mouseScrollDelta.y * 0.1f, -4, 4);
-						}
-						else
-						{
-							settings.FocalLength.Value = Mathf.Clamp(settings.FocalLength * (1 + Input.mouseScrollDelta.y * 0.1f), 1, 400);
-						}
-					}
-				}
+				if (control.adjustFocalLength != 0)
+					settings.FocalLength.Value = Mathf.Clamp(settings.FocalLength * (1 + control.adjustFocalLength * 0.1f), 1, 400);
+				if (control.adjustFstop != 0)
+					settings.FStop.Value = Mathf.Clamp(settings.FStop * (1 + control.adjustFstop * 0.1f), 1, 16);
+				if (control.adjustExposure != 0)
+					settings.Exposure.Value = Mathf.Clamp(settings.Exposure + control.adjustExposure * 0.1f, -4, 4);
 			}
 
 			Quaternion rotate = Quaternion.Euler(0f, yawPitchRoll.x, 0f) * Quaternion.Euler(yawPitchRoll.y, 0f, 0f) * Quaternion.Euler(0f, 0f, yawPitchRoll.z);

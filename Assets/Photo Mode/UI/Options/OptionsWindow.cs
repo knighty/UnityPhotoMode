@@ -1,36 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace PhotoMode.UI
 {
-	public interface Option<T>
-	{
-		Action<T> OnChange { get; set; }
-		T Value { get; set; }
-	}
-
-	public interface Options
-	{
-		public Option<string> ScreenshotFolder { get; }
-		public Option<float> CameraSpeed { get; }
-		public Option<bool> SaveJPG { get; }
-		public Option<bool> SavePNG { get; }
-		public Option<bool> SaveClipboard { get; }
-	}
-
 	public class OptionsWindow : MonoBehaviour
 	{
 		[SerializeField] InputField screenshotFolderInputField;
-		[SerializeField] UnityEngine.UI.Button screenshotFolderButton;
+		[SerializeField] Button screenshotFolderButton;
 		[SerializeField] Slider cameraSpeedSlider;
 		[SerializeField] Toggle jpgToggle;
 		[SerializeField] Toggle pngToggle;
 		[SerializeField] Toggle clipboardToggle;
+		[SerializeField] Dropdown controlModeDropdown;
 		[SerializeField] ScriptableOptions scriptableOptions;
 
 		Options options;
@@ -38,7 +20,8 @@ namespace PhotoMode.UI
 
 		public Options Options
 		{
-			get => options; set
+			get => options;
+			set
 			{
 				options = value;
 
@@ -48,12 +31,16 @@ namespace PhotoMode.UI
 				InitToggle(jpgToggle, options.SaveJPG);
 				InitToggle(pngToggle, options.SavePNG);
 				InitToggle(clipboardToggle, options.SaveClipboard);
+
+				subscriptions.Subscribe(options.ControlMode.OnChange, value => controlModeDropdown.SetValueWithoutNotify((int)value));
+				subscriptions.Subscribe(controlModeDropdown.onValueChanged, value => options.ControlMode.Value = (FlyCamera.FlyControlMode)value);
+				controlModeDropdown.SetValueWithoutNotify((int)options.ControlMode.Value);
 			}
 		}
 
 		private void Start()
 		{
-			if (scriptableOptions != null)
+			if (options == null && scriptableOptions != null)
 			{
 				Options = scriptableOptions;
 			}

@@ -183,10 +183,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Left: 7
+    m_Right: 7
+    m_Top: 7
+    m_Bottom: 7
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
@@ -1661,7 +1661,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -7975249404588759376, guid: 1af4b6e25f2c3cb4f9c52709ab54d2a1, type: 3}
-  m_Type: 1
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1935,6 +1935,7 @@ MonoBehaviour:
   settings: {fileID: 0}
   propertiesList: {fileID: 1816224733259121583}
   floatPrefab: {fileID: 7532844975132387973, guid: 3592d57692e81d044a5753249f4f69e6, type: 3}
+  boolPrefab: {fileID: 681222328019872173, guid: 16d7d5d75c8610549a3b4c7202b62d70, type: 3}
   editorPrefabFactories:
   - propertyName: ApertureShape
     editorPrefab: {fileID: 3938206281547506037, guid: 809678d15ebbfeb408c3f353a4a72a9f, type: 3}
